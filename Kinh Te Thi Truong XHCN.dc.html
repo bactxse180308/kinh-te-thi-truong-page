@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFF8E1;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#1F2937;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+
+  <!-- HEADER -->
+  <header style="background:#DA251D;color:#fff;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(218,37,29,0.3);">
+    <div style="max-width:1080px;margin:0 auto;padding:14px 20px 10px;display:flex;align-items:center;gap:12px;">
+      <div style="width:40px;height:40px;border-radius:10px;background:#FFD700;display:flex;align-items:center;justify-content:center;font-size:22px;color:#DA251D;flex-shrink:0;">★</div>
+      <div>
+        <div style="font-size:17px;font-weight:800;line-height:1.25;">Kinh tế thị trường định hướng XHCN ở Việt Nam</div>
+        <div style="font-size:12px;color:#FFE9A8;font-weight:500;">Website học tương tác · Kinh tế chính trị Mác – Lênin · Chương 5</div>
+      </div>
+    </div>
+    <nav style="max-width:1080px;margin:0 auto;padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:6px;">
+      <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="11">
+        <button onClick="{{ nv.go }}" style="border:none;cursor:pointer;padding:7px 13px;border-radius:999px;font-family:inherit;font-size:12.5px;font-weight:{{ nv.fw }};background:{{ nv.bg }};color:{{ nv.color }};transition:background 0.15s;" style-hover="filter:brightness(1.1)">{{ nv.label }}</button>
+      </sc-for>
+    </nav>
+  </header>
+
+  <main style="flex:1;width:100%;">
+
+  <!-- ═══════════ HOME ═══════════ -->
+  <sc-if value="{{ pHome }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1080px;margin:0 auto;padding:48px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="text-align:center;max-width:760px;margin:0 auto 44px;">
+        <div style="display:inline-block;background:#FFD700;color:#7C2D12;font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;margin-bottom:18px;letter-spacing:0.4px;">GIÁO TRÌNH KINH TẾ CHÍNH TRỊ MÁC – LÊNIN</div>
+        <h1 style="font-size:40px;font-weight:900;line-height:1.15;margin:0 0 16px;color:#B91C1C;">Hiểu đúng Kinh tế thị trường<br>định hướng xã hội chủ nghĩa</h1>
+        <p style="font-size:16.5px;line-height:1.65;color:#4B5563;margin:0 0 28px;">Website giúp người học hiểu khái niệm, tính tất yếu, đặc trưng và yêu cầu hoàn thiện thể chế của kinh tế thị trường định hướng XHCN ở Việt Nam.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button onClick="{{ goKhaiNiem }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:13px 26px;border-radius:12px;box-shadow:0 4px 14px rgba(218,37,29,0.35);" style-hover="background:#B91C1C">Bắt đầu học →</button>
+          <button onClick="{{ goTimeline }}" style="border:2px solid #DA251D;cursor:pointer;background:#fff;color:#DA251D;font-family:inherit;font-size:15px;font-weight:700;padding:11px 24px;border-radius:12px;" style-hover="background:#FEF2F2">Xem timeline</button>
+          <button onClick="{{ goQuiz }}" style="border:2px solid #EAB308;cursor:pointer;background:#FFD700;color:#7C2D12;font-family:inherit;font-size:15px;font-weight:700;padding:11px 24px;border-radius:12px;" style-hover="filter:brightness(1.05)">Làm quiz</button>
+          <button onClick="{{ goChat }}" style="border:2px solid #E5D9B0;cursor:pointer;background:#fff;color:#1F2937;font-family:inherit;font-size:15px;font-weight:700;padding:11px 24px;border-radius:12px;" style-hover="border-color:#DA251D">Hỏi chatbot</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;">
+        <div onClick="{{ goKhaiNiem }}" style="cursor:pointer;background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(218,37,29,0.15)">
+          <div style="width:44px;height:44px;border-radius:12px;background:#FEF2F2;color:#DA251D;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:14px;">1</div>
+          <div style="font-weight:800;font-size:16px;margin-bottom:6px;">Khái niệm</div>
+          <div style="font-size:13.5px;color:#6B7280;line-height:1.55;">Nền kinh tế vận hành theo quy luật thị trường, có định hướng XHCN và sự điều tiết của Nhà nước.</div>
+        </div>
+        <div onClick="{{ goTatYeu }}" style="cursor:pointer;background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(218,37,29,0.15)">
+          <div style="width:44px;height:44px;border-radius:12px;background:#FFFBEB;color:#A16207;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:14px;">2</div>
+          <div style="font-weight:800;font-size:16px;margin-bottom:6px;">Tính tất yếu</div>
+          <div style="font-size:13.5px;color:#6B7280;line-height:1.55;">Ba lý do khách quan khiến Việt Nam phát triển kinh tế thị trường định hướng XHCN.</div>
+        </div>
+        <div onClick="{{ goDacTrung }}" style="cursor:pointer;background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(218,37,29,0.15)">
+          <div style="width:44px;height:44px;border-radius:12px;background:#FEF2F2;color:#DA251D;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:14px;">3</div>
+          <div style="font-weight:800;font-size:16px;margin-bottom:6px;">Đặc trưng</div>
+          <div style="font-size:13.5px;color:#6B7280;line-height:1.55;">Năm đặc trưng: mục tiêu, sở hữu, quản lý, phân phối, tăng trưởng gắn với công bằng xã hội.</div>
+        </div>
+        <div onClick="{{ goHoanThien }}" style="cursor:pointer;background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(218,37,29,0.15)">
+          <div style="width:44px;height:44px;border-radius:12px;background:#FFFBEB;color:#A16207;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:14px;">4</div>
+          <div style="font-weight:800;font-size:16px;margin-bottom:6px;">Hoàn thiện thể chế</div>
+          <div style="font-size:13.5px;color:#6B7280;line-height:1.55;">Vì sao phải hoàn thiện thể chế và bốn nhóm nội dung hoàn thiện.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ KHÁI NIỆM ═══════════ -->
+  <sc-if value="{{ pKhaiNiem }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:900px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 1</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 20px;">Khái niệm</h2>
+      <div style="background:#fff;border-left:5px solid #DA251D;border-radius:0 14px 14px 0;padding:22px 26px;box-shadow:0 2px 10px rgba(180,140,20,0.1);margin-bottom:30px;">
+        <p style="margin:0;font-size:17px;line-height:1.7;font-weight:500;">Kinh tế thị trường định hướng XHCN là nền kinh tế <b style="color:#DA251D;">vận hành theo các quy luật của thị trường</b>, đồng thời góp phần hướng tới từng bước xác lập một xã hội mà ở đó <b style="color:#A16207;">dân giàu, nước mạnh, dân chủ, công bằng, văn minh</b>; có sự điều tiết của Nhà nước do Đảng Cộng sản Việt Nam lãnh đạo.</p>
+      </div>
+      <div style="text-align:center;font-size:13px;color:#6B7280;margin-bottom:14px;">Nhấn vào từng nhánh để xem giải thích</div>
+      <div style="background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:26px;text-align:center;box-shadow:0 2px 10px rgba(180,140,20,0.08);">
+        <div style="display:inline-block;background:#DA251D;color:#fff;font-weight:800;font-size:15px;padding:12px 22px;border-radius:12px;margin-bottom:18px;">Kinh tế thị trường định hướng XHCN</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left;">
+          <div>
+            <button onClick="{{ toggleMarket }}" style="width:100%;cursor:pointer;border:2px solid {{ marketBorder }};background:{{ marketBg }};border-radius:12px;padding:16px;font-family:inherit;text-align:left;" style-hover="border-color:#DA251D">
+              <div style="font-weight:800;font-size:15px;color:#DA251D;">⚖ Vận hành theo quy luật thị trường</div>
+              <div style="font-size:12.5px;color:#6B7280;margin-top:4px;">{{ marketHint }}</div>
+            </button>
+            <sc-if value="{{ showMarket }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;animation:fadeUp 0.3s ease;">
+                <div style="background:#FEF2F2;border-radius:10px;padding:12px 14px;"><b style="font-size:13.5px;">Cung – cầu</b><div style="font-size:12.5px;color:#6B7280;line-height:1.5;">Quan hệ cung – cầu quyết định giá cả và lượng hàng hóa trên thị trường.</div></div>
+                <div style="background:#FEF2F2;border-radius:10px;padding:12px 14px;"><b style="font-size:13.5px;">Giá cả</b><div style="font-size:12.5px;color:#6B7280;line-height:1.5;">Giá cả hình thành trên thị trường, là tín hiệu điều tiết sản xuất và tiêu dùng.</div></div>
+                <div style="background:#FEF2F2;border-radius:10px;padding:12px 14px;"><b style="font-size:13.5px;">Cạnh tranh</b><div style="font-size:12.5px;color:#6B7280;line-height:1.5;">Cạnh tranh thúc đẩy tiến bộ kỹ thuật, nâng cao năng suất, chất lượng, hạ giá thành.</div></div>
+                <div style="background:#FEF2F2;border-radius:10px;padding:12px 14px;"><b style="font-size:13.5px;">Phân bổ nguồn lực</b><div style="font-size:12.5px;color:#6B7280;line-height:1.5;">Thị trường là phương thức phân bổ nguồn lực hiệu quả mà loài người đã đạt được.</div></div>
+              </div>
+            </sc-if>
+          </div>
+          <div>
+            <button onClick="{{ toggleSocial }}" style="width:100%;cursor:pointer;border:2px solid {{ socialBorder }};background:{{ socialBg }};border-radius:12px;padding:16px;font-family:inherit;text-align:left;" style-hover="border-color:#EAB308">
+              <div style="font-weight:800;font-size:15px;color:#A16207;">★ Định hướng xã hội chủ nghĩa</div>
+              <div style="font-size:12.5px;color:#6B7280;margin-top:4px;">{{ socialHint }}</div>
+            </button>
+            <sc-if value="{{ showSocial }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;animation:fadeUp 0.3s ease;">
+                <div style="background:#FFFBEB;border-radius:10px;padding:12px 14px;"><b style="font-size:13.5px;">Dân giàu · Nước mạnh</b><div style="font-size:12.5px;color:#6B7280;line-height:1.5;">Nâng cao đời sống nhân dân, phát triển lực lượng sản xuất, tăng thực lực quốc gia.</div></div>
+                <div style="background:#FFFBEB;border-radius:10px;padding:12px 14px;"><b style="font-size:13.5px;">Dân chủ · Công bằng · Văn minh</b><div style="font-size:12.5px;color:#6B7280;line-height:1.5;">Hệ giá trị toàn diện của xã hội tương lai mà định hướng XHCN hướng tới xác lập.</div></div>
+                <div style="background:#FFFBEB;border-radius:10px;padding:12px 14px;"><b style="font-size:13.5px;">Nhà nước điều tiết, Đảng lãnh đạo</b><div style="font-size:12.5px;color:#6B7280;line-height:1.5;">Nhà nước điều tiết nền kinh tế dưới sự lãnh đạo của Đảng Cộng sản Việt Nam — đảng cầm quyền do lịch sử khách quan quy định.</div></div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:26px;text-align:right;"><button onClick="{{ goTimeline }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Tiếp theo: Quá trình nhận thức →</button></div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ TIMELINE ═══════════ -->
+  <sc-if value="{{ pTimeline }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:820px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 2</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+        <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0;">Quá trình hình thành nhận thức của Đảng</h2>
+        <button onClick="{{ toggleTlAll }}" style="border:2px solid #DA251D;cursor:pointer;background:#fff;color:#DA251D;font-family:inherit;font-size:13px;font-weight:700;padding:8px 16px;border-radius:999px;" style-hover="background:#FEF2F2">{{ tlAllLabel }}</button>
+      </div>
+      <div style="position:relative;padding-left:34px;">
+        <div style="position:absolute;left:11px;top:8px;bottom:8px;width:3px;background:linear-gradient(#DA251D,#FFD700);border-radius:2px;"></div>
+        <sc-for list="{{ tlItems }}" as="t" hint-placeholder-count="6">
+          <div style="position:relative;margin-bottom:14px;">
+            <div style="position:absolute;left:-31px;top:16px;width:17px;height:17px;border-radius:50%;background:{{ t.dotBg }};border:3px solid #FFF8E1;box-shadow:0 0 0 2px {{ t.dotBg }};"></div>
+            <button onClick="{{ t.toggle }}" style="width:100%;cursor:pointer;text-align:left;background:#fff;border:1px solid {{ t.border }};border-radius:14px;padding:16px 20px;font-family:inherit;box-shadow:0 2px 8px rgba(180,140,20,0.08);" style-hover="border-color:#DA251D">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="background:{{ t.badgeBg }};color:{{ t.badgeColor }};font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;white-space:nowrap;">{{ t.moc }}</span>
+                <span style="font-weight:700;font-size:14.5px;flex:1;">{{ t.title }}</span>
+                <span style="color:#9CA3AF;font-size:13px;">{{ t.chev }}</span>
+              </div>
+              <sc-if value="{{ t.open }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:12px;font-size:13.5px;line-height:1.65;color:#4B5563;border-top:1px dashed #F0E2B6;padding-top:12px;animation:fadeUp 0.25s ease;">{{ t.detail }}</div>
+              </sc-if>
+            </button>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font-size:12px;color:#9CA3AF;margin-top:8px;">Nguồn: Văn kiện Đại hội đại biểu toàn quốc lần thứ VI–XIII, Đảng Cộng sản Việt Nam.</div>
+      <div style="margin-top:22px;text-align:right;"><button onClick="{{ goTatYeu }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Tiếp theo: Tính tất yếu →</button></div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ TÍNH TẤT YẾU ═══════════ -->
+  <sc-if value="{{ pTatYeu }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1020px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 3</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 8px;">Tính tất yếu khách quan</h2>
+      <p style="font-size:15px;color:#4B5563;margin:0 0 26px;line-height:1.6;">Phát triển kinh tế thị trường định hướng XHCN là tất yếu ở Việt Nam, xuất phát từ <b>ba lý do cơ bản</b>:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;">
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(180,140,20,0.08);display:flex;flex-direction:column;">
+          <div style="width:46px;height:46px;border-radius:50%;background:#DA251D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;margin-bottom:14px;">1</div>
+          <div style="font-weight:800;font-size:16px;margin-bottom:8px;line-height:1.4;">Phù hợp với xu hướng phát triển khách quan</div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.6;flex:1;">Khi sản xuất hàng hóa phát triển đến trình độ cao thì kinh tế thị trường hình thành một cách khách quan. Ở Việt Nam, các điều kiện cho sự hình thành và phát triển kinh tế thị trường đang tồn tại khách quan.</div>
+          <div style="margin-top:14px;background:#FFFBEB;border:1px dashed #EAB308;border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.55;"><b style="color:#A16207;">Ví dụ đời sống:</b> cung – cầu làm giá hàng hóa thay đổi — mùa thu hoạch rộ, giá nông sản giảm; khan hàng, giá tăng.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(180,140,20,0.08);display:flex;flex-direction:column;">
+          <div style="width:46px;height:46px;border-radius:50%;background:#DA251D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;margin-bottom:14px;">2</div>
+          <div style="font-weight:800;font-size:16px;margin-bottom:8px;line-height:1.4;">Tính ưu việt của kinh tế thị trường</div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.6;flex:1;">Kinh tế thị trường là phương thức phân bổ nguồn lực hiệu quả; là động lực thúc đẩy lực lượng sản xuất phát triển nhanh, kích thích tiến bộ kỹ thuật – công nghệ, nâng cao năng suất lao động, chất lượng sản phẩm và hạ giá thành.</div>
+          <div style="margin-top:14px;background:#FFFBEB;border:1px dashed #EAB308;border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.55;"><b style="color:#A16207;">Ví dụ đời sống:</b> doanh nghiệp cạnh tranh khiến chất lượng sản phẩm tốt hơn, giá hợp lý hơn cho người tiêu dùng.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(180,140,20,0.08);display:flex;flex-direction:column;">
+          <div style="width:46px;height:46px;border-radius:50%;background:#DA251D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;margin-bottom:14px;">3</div>
+          <div style="font-weight:800;font-size:16px;margin-bottom:8px;line-height:1.4;">Phù hợp với nguyện vọng của nhân dân</div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.6;flex:1;">Mô hình phù hợp với nguyện vọng mong muốn dân giàu, nước mạnh, dân chủ, công bằng, văn minh của người dân Việt Nam — khát vọng chung mà mọi quốc gia đều hướng tới.</div>
+          <div style="margin-top:14px;background:#FFFBEB;border:1px dashed #EAB308;border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.55;"><b style="color:#A16207;">Ví dụ đời sống:</b> Nhà nước có chính sách an sinh xã hội để giảm tác động tiêu cực của thị trường tới nhóm yếu thế.</div>
+        </div>
+      </div>
+      <div style="margin-top:26px;text-align:right;"><button onClick="{{ goDacTrung }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Tiếp theo: Đặc trưng →</button></div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ ĐẶC TRƯNG ═══════════ -->
+  <sc-if value="{{ pDacTrung }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1020px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 4 · TRỌNG TÂM</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 8px;">Năm đặc trưng của mô hình</h2>
+      <p style="font-size:15px;color:#4B5563;margin:0 0 24px;line-height:1.6;">Nhấn vào từng đặc trưng để xem nội dung và ví dụ minh họa.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <sc-for list="{{ dtItems }}" as="d" hint-placeholder-count="5">
+          <button onClick="{{ d.toggle }}" style="width:100%;cursor:pointer;text-align:left;background:#fff;border:1px solid {{ d.border }};border-radius:14px;padding:18px 22px;font-family:inherit;box-shadow:0 2px 8px rgba(180,140,20,0.08);" style-hover="border-color:#DA251D">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div style="width:40px;height:40px;border-radius:10px;background:{{ d.iconBg }};color:{{ d.iconColor }};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0;">{{ d.num }}</div>
+              <div style="flex:1;">
+                <div style="font-weight:800;font-size:15.5px;">{{ d.title }}</div>
+                <div style="font-size:12.5px;color:#9CA3AF;">{{ d.sub }}</div>
+              </div>
+              <span style="color:#9CA3AF;font-size:13px;">{{ d.chev }}</span>
+            </div>
+            <sc-if value="{{ d.open }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px;border-top:1px dashed #F0E2B6;padding-top:14px;animation:fadeUp 0.25s ease;">
+                <div style="font-size:14px;line-height:1.65;color:#374151;">{{ d.body }}</div>
+                <div style="margin-top:12px;background:#FFFBEB;border:1px dashed #EAB308;border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.55;"><b style="color:#A16207;">Ví dụ:</b> {{ d.example }}</div>
+              </div>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:28px;text-align:center;">
+        <button onClick="{{ toggleCmp }}" style="border:2px solid #DA251D;cursor:pointer;background:{{ cmpBtnBg }};color:{{ cmpBtnColor }};font-family:inherit;font-size:14px;font-weight:700;padding:11px 24px;border-radius:999px;" style-hover="filter:brightness(1.05)">{{ cmpBtnLabel }}</button>
+      </div>
+      <sc-if value="{{ showCmp }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:18px;background:#fff;border:1px solid #F0E2B6;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(180,140,20,0.08);animation:fadeUp 0.3s ease;">
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px;">
+              <thead>
+                <tr style="background:#DA251D;color:#fff;">
+                  <th style="text-align:left;padding:13px 16px;font-weight:700;width:20%;">Tiêu chí</th>
+                  <th style="text-align:left;padding:13px 16px;font-weight:700;width:38%;">Kinh tế thị trường nói chung</th>
+                  <th style="text-align:left;padding:13px 16px;font-weight:700;width:42%;background:#B91C1C;">KTTT định hướng XHCN ở Việt Nam</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #F5EBCB;"><td style="padding:13px 16px;font-weight:700;">Cơ chế vận hành</td><td style="padding:13px 16px;color:#4B5563;line-height:1.55;">Theo quy luật thị trường</td><td style="padding:13px 16px;line-height:1.55;background:#FFFBEB;">Theo quy luật thị trường nhưng có định hướng XHCN</td></tr>
+                <tr style="border-bottom:1px solid #F5EBCB;"><td style="padding:13px 16px;font-weight:700;">Mục tiêu</td><td style="padding:13px 16px;color:#4B5563;line-height:1.55;">Tăng trưởng, lợi nhuận, hiệu quả</td><td style="padding:13px 16px;line-height:1.55;background:#FFFBEB;">Tăng trưởng gắn với dân giàu, nước mạnh, dân chủ, công bằng, văn minh</td></tr>
+                <tr style="border-bottom:1px solid #F5EBCB;"><td style="padding:13px 16px;font-weight:700;">Vai trò Nhà nước</td><td style="padding:13px 16px;color:#4B5563;line-height:1.55;">Có điều tiết, tùy mô hình quốc gia</td><td style="padding:13px 16px;line-height:1.55;background:#FFFBEB;">Nhà nước pháp quyền XHCN quản lý, dưới sự lãnh đạo của Đảng</td></tr>
+                <tr><td style="padding:13px 16px;font-weight:700;">Phân phối</td><td style="padding:13px 16px;color:#4B5563;line-height:1.55;">Theo thị trường và chính sách từng nước</td><td style="padding:13px 16px;line-height:1.55;background:#FFFBEB;">Nhiều hình thức; nhấn mạnh phân phối theo lao động, hiệu quả kinh tế và phúc lợi</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </sc-if>
+      <div style="margin-top:26px;text-align:right;"><button onClick="{{ goTheChe }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Tiếp theo: Thể chế →</button></div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ THỂ CHẾ ═══════════ -->
+  <sc-if value="{{ pTheChe }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:920px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 5</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 24px;">Thể chế và sự cần thiết hoàn thiện thể chế</h2>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:36px;">
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:20px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;"><span style="background:#FEF2F2;color:#DA251D;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">KHÁI NIỆM 1</span><b style="font-size:15.5px;">Thể chế</b></div>
+          <div style="font-size:14px;color:#4B5563;line-height:1.65;">Là những quy tắc, luật pháp, bộ máy quản lý và cơ chế vận hành nhằm điều chỉnh các hoạt động của con người trong một chế độ xã hội.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:20px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;"><span style="background:#FEF2F2;color:#DA251D;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">KHÁI NIỆM 2</span><b style="font-size:15.5px;">Thể chế kinh tế</b></div>
+          <div style="font-size:14px;color:#4B5563;line-height:1.65;">Là hệ thống quy tắc, luật pháp, bộ máy quản lý và cơ chế vận hành nhằm điều chỉnh hành vi của các chủ thể kinh tế, các hành vi sản xuất kinh doanh và các quan hệ kinh tế.</div>
+        </div>
+        <div style="background:#fff;border:2px solid #FFD700;border-radius:14px;padding:20px 24px;box-shadow:0 2px 10px rgba(218,37,29,0.1);">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap;"><span style="background:#FFD700;color:#7C2D12;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">KHÁI NIỆM 3 · TRỌNG TÂM</span><b style="font-size:15.5px;">Thể chế kinh tế thị trường định hướng XHCN</b></div>
+          <div style="font-size:14px;color:#4B5563;line-height:1.65;">Là hệ thống đường lối, chủ trương chiến lược, hệ thống luật pháp, chính sách xác lập cơ chế vận hành, điều chỉnh chức năng, hoạt động, mục tiêu, phương thức hoạt động, các quan hệ lợi ích của các tổ chức, các chủ thể kinh tế — nhằm hướng tới xác lập <b>đồng bộ các yếu tố thị trường, các loại thị trường hiện đại</b>, góp phần thúc đẩy dân giàu, nước mạnh, dân chủ, công bằng, văn minh.</div>
+        </div>
+      </div>
+      <h3 style="font-size:20px;font-weight:800;margin:0 0 16px;text-align:center;">Vì sao phải hoàn thiện thể chế?</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+        <div style="text-align:center;background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:26px 20px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="width:74px;height:74px;border-radius:50%;background:#FEF2F2;border:3px solid #DA251D;color:#DA251D;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;margin:0 auto 14px;">1</div>
+          <div style="font-weight:800;font-size:15px;margin-bottom:6px;">Chưa đồng bộ</div>
+          <div style="font-size:12.5px;color:#6B7280;line-height:1.55;">Thể chế mới hình thành và phát triển, nên tiếp tục hoàn thiện là yêu cầu khách quan để phát huy mặt tích cực, khắc phục khuyết tật của thị trường.</div>
+        </div>
+        <div style="text-align:center;background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:26px 20px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="width:74px;height:74px;border-radius:50%;background:#FFFBEB;border:3px solid #EAB308;color:#A16207;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;margin:0 auto 14px;">2</div>
+          <div style="font-weight:800;font-size:15px;margin-bottom:6px;">Chưa đầy đủ</div>
+          <div style="font-size:12.5px;color:#6B7280;line-height:1.55;">Thể chế là sản phẩm của Nhà nước; Nhà nước phải xây dựng và hoàn thiện thể chế phục vụ lợi ích của nhân dân, thực hiện mục tiêu của nền kinh tế.</div>
+        </div>
+        <div style="text-align:center;background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:26px 20px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="width:74px;height:74px;border-radius:50%;background:#FEF2F2;border:3px solid #DA251D;color:#DA251D;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;margin:0 auto 14px;">3</div>
+          <div style="font-weight:800;font-size:15px;margin-bottom:6px;">Kém hiệu lực, hiệu quả</div>
+          <div style="font-size:12.5px;color:#6B7280;line-height:1.55;">Hệ thống thể chế chưa đủ mạnh, hiệu quả thực thi chưa cao; các yếu tố thị trường, các loại thị trường mới ở trình độ sơ khai.</div>
+        </div>
+      </div>
+      <div style="margin-top:26px;text-align:right;"><button onClick="{{ goHoanThien }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Tiếp theo: Nội dung hoàn thiện →</button></div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ HOÀN THIỆN THỂ CHẾ ═══════════ -->
+  <sc-if value="{{ pHoanThien }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:880px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 6</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 8px;">Nội dung hoàn thiện thể chế</h2>
+      <p style="font-size:15px;color:#4B5563;margin:0 0 24px;line-height:1.6;">Bốn nhóm nội dung — nhấn từng nhóm để mở chi tiết.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <sc-for list="{{ accItems }}" as="a" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid {{ a.border }};border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+            <button onClick="{{ a.toggle }}" style="width:100%;cursor:pointer;text-align:left;background:{{ a.headBg }};border:none;padding:17px 20px;font-family:inherit;display:flex;align-items:center;gap:14px;" style-hover="background:#FEF7E0">
+              <div style="width:36px;height:36px;border-radius:10px;background:#DA251D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;">{{ a.num }}</div>
+              <div style="flex:1;font-weight:800;font-size:15px;line-height:1.4;">{{ a.title }}</div>
+              <span style="color:#9CA3AF;font-size:13px;">{{ a.chev }}</span>
+            </button>
+            <sc-if value="{{ a.open }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:4px 20px 18px 70px;animation:fadeUp 0.25s ease;">
+                <sc-for list="{{ a.points }}" as="p" hint-placeholder-count="3">
+                  <div style="display:flex;gap:10px;margin-bottom:9px;font-size:13.5px;line-height:1.6;color:#374151;">
+                    <span style="color:#DA251D;font-weight:800;flex-shrink:0;">•</span><span>{{ p.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:26px;text-align:right;"><button onClick="{{ goViDu }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Tiếp theo: Ví dụ thực tế →</button></div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ VÍ DỤ THỰC TẾ ═══════════ -->
+  <sc-if value="{{ pViDu }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:880px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 7</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 8px;">Ví dụ thực tế</h2>
+      <p style="font-size:15px;color:#4B5563;margin:0 0 24px;line-height:1.6;">Các ví dụ dưới đây chỉ dùng để <b>minh họa</b> lý thuyết trong bài — không thuộc phạm vi quiz.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:20px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;"><span style="background:#FFD700;color:#7C2D12;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">MINH HỌA</span><b style="font-size:15px;">Hội nhập kinh tế quốc tế</b></div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.65;">Việt Nam là thành viên WTO từ ngày 11/01/2007 — thể hiện quá trình hội nhập vào kinh tế thế giới.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:20px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;"><span style="background:#FFD700;color:#7C2D12;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">MINH HỌA</span><b style="font-size:15px;">Kinh tế tư nhân là động lực quan trọng</b></div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.65;">Theo Cổng thông tin Chính phủ, khu vực kinh tế tư nhân có hơn 940 nghìn doanh nghiệp, hơn 5 triệu hộ kinh doanh, đóng góp khoảng 50% GDP và sử dụng khoảng 82% lao động.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:20px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;"><span style="background:#FFD700;color:#7C2D12;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">MINH HỌA</span><b style="font-size:15px;">Nhà nước điều tiết thị trường</b></div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.65;">Quỹ bình ổn giá xăng dầu là công cụ giúp "giảm chấn" khi giá xăng dầu biến động mạnh.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:20px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;"><span style="background:#FFD700;color:#7C2D12;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">MINH HỌA</span><b style="font-size:15px;">Phát triển đồng bộ các loại thị trường</b></div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.65;">Trong đời sống: mua bán hàng hóa (thị trường hàng hóa), vay vốn ngân hàng (thị trường vốn), tuyển dụng lao động (thị trường lao động), chuyển giao công nghệ (thị trường công nghệ).</div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:20px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;"><span style="background:#FFD700;color:#7C2D12;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;">MINH HỌA</span><b style="font-size:15px;">Gắn tăng trưởng với công bằng xã hội</b></div>
+          <div style="font-size:13.5px;color:#4B5563;line-height:1.65;">Chính sách giáo dục, y tế, an sinh xã hội, hỗ trợ nhóm thu nhập thấp — đầu tư cho các vấn đề xã hội là đầu tư cho sự phát triển bền vững.</div>
+        </div>
+      </div>
+      <div style="margin-top:26px;text-align:right;"><button onClick="{{ goTongHop }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Tiếp theo: Tổng hợp →</button></div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ TỔNG HỢP ═══════════ -->
+  <sc-if value="{{ pTongHop }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:880px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">PHẦN 8 · ÔN NHANH TRƯỚC QUIZ</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 24px;">Tổng hợp kiến thức</h2>
+      <div style="background:#DA251D;color:#fff;border-radius:16px;padding:24px 28px;margin-bottom:18px;box-shadow:0 4px 16px rgba(218,37,29,0.3);">
+        <div style="font-size:12px;font-weight:800;color:#FFD700;letter-spacing:1px;margin-bottom:8px;">MỘT CÂU NHỚ NHANH</div>
+        <div style="font-size:16px;line-height:1.7;font-weight:500;">Kinh tế thị trường định hướng XHCN ở Việt Nam là mô hình kinh tế <b style="color:#FFD700;">vận hành theo quy luật thị trường</b>, có sự <b style="color:#FFD700;">điều tiết của Nhà nước</b> dưới sự <b style="color:#FFD700;">lãnh đạo của Đảng</b>, hướng tới mục tiêu <b style="color:#FFD700;">dân giàu, nước mạnh, dân chủ, công bằng, văn minh</b>.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="font-weight:800;font-size:15px;color:#DA251D;margin-bottom:12px;">3 lý do tất yếu</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;line-height:1.5;">
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">①</span>Phù hợp quy luật phát triển khách quan</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">②</span>Phát huy ưu thế của kinh tế thị trường</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">③</span>Phù hợp nguyện vọng của nhân dân</div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="font-weight:800;font-size:15px;color:#DA251D;margin-bottom:12px;">5 đặc trưng</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;line-height:1.5;">
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">①</span>Về mục tiêu</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">②</span>Về sở hữu và thành phần kinh tế</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">③</span>Về quản lý nền kinh tế</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">④</span>Về phân phối</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">⑤</span>Tăng trưởng gắn với công bằng xã hội</div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="font-weight:800;font-size:15px;color:#DA251D;margin-bottom:12px;">4 nhóm hoàn thiện thể chế</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;line-height:1.5;">
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">①</span>Sở hữu, thành phần kinh tế, doanh nghiệp</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">②</span>Yếu tố thị trường và loại thị trường</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">③</span>Tăng trưởng + bền vững + công bằng + hội nhập</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">④</span>Lãnh đạo của Đảng, vai trò Nhà nước và nhân dân</div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+          <div style="font-weight:800;font-size:15px;color:#DA251D;margin-bottom:12px;">3 lý do hoàn thiện thể chế</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;line-height:1.5;">
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">①</span>Thể chế còn chưa đồng bộ</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">②</span>Hệ thống thể chế chưa đầy đủ</div>
+            <div style="display:flex;gap:9px;"><span style="color:#A16207;font-weight:800;">③</span>Thể chế còn kém hiệu lực, hiệu quả</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:30px;text-align:center;">
+        <button onClick="{{ goQuiz }}" style="border:none;cursor:pointer;background:#FFD700;color:#7C2D12;font-family:inherit;font-size:16px;font-weight:800;padding:14px 34px;border-radius:12px;box-shadow:0 4px 14px rgba(234,179,8,0.4);animation:pulse 2.5s infinite;" style-hover="filter:brightness(1.05)">Sẵn sàng? Làm quiz ngay →</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ QUIZ ═══════════ -->
+  <sc-if value="{{ pQuiz }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:780px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">KIỂM TRA</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px;">
+        <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0;">Quiz tổng hợp</h2>
+        <div style="background:#fff;border:1px solid #F0E2B6;border-radius:999px;padding:8px 18px;font-size:14px;font-weight:700;box-shadow:0 2px 8px rgba(180,140,20,0.08);">Điểm: <span style="color:#DA251D;">{{ quizScore }}</span> / {{ quizTotal }}</div>
+      </div>
+      <p style="font-size:14px;color:#6B7280;margin:0 0 24px;">10 câu hỏi bám sát nội dung bài học. Chọn đáp án để xem kết quả ngay.</p>
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <sc-for list="{{ quizItems }}" as="q" hint-placeholder-count="10">
+          <div style="background:#fff;border:1px solid #F0E2B6;border-radius:16px;padding:22px 24px;box-shadow:0 2px 8px rgba(180,140,20,0.08);">
+            <div style="display:flex;gap:12px;margin-bottom:14px;">
+              <div style="width:32px;height:32px;border-radius:9px;background:#DA251D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;">{{ q.num }}</div>
+              <div style="font-weight:700;font-size:15px;line-height:1.55;padding-top:4px;">{{ q.q }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.pick }}" style="cursor:pointer;text-align:left;font-family:inherit;font-size:13.5px;line-height:1.5;padding:12px 16px;border-radius:10px;border:2px solid {{ o.border }};background:{{ o.bg }};color:{{ o.color }};display:flex;gap:10px;align-items:flex-start;" style-hover="border-color:#DA251D">
+                  <span style="font-weight:800;flex-shrink:0;">{{ o.letter }}</span><span style="flex:1;">{{ o.text }}</span><span style="flex-shrink:0;font-weight:800;">{{ o.mark }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ q.answered }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:12px;background:{{ q.fbBg }};border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;animation:fadeUp 0.25s ease;"><b style="color:{{ q.fbColor }};">{{ q.fbTitle }}</b> {{ q.explain }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:26px;background:#DA251D;color:#fff;border-radius:16px;padding:26px;text-align:center;box-shadow:0 4px 16px rgba(218,37,29,0.3);animation:fadeUp 0.3s ease;">
+          <div style="font-size:34px;font-weight:900;color:#FFD700;">{{ quizScore }} / {{ quizTotal }}</div>
+          <div style="font-size:15px;margin-top:6px;font-weight:600;">{{ quizVerdict }}</div>
+        </div>
+      </sc-if>
+      <div style="margin-top:20px;display:flex;justify-content:center;gap:12px;">
+        <button onClick="{{ resetQuiz }}" style="border:2px solid #DA251D;cursor:pointer;background:#fff;color:#DA251D;font-family:inherit;font-size:14px;font-weight:700;padding:10px 22px;border-radius:10px;" style-hover="background:#FEF2F2">↺ Làm lại</button>
+        <button onClick="{{ goTongHop }}" style="border:2px solid #E5D9B0;cursor:pointer;background:#fff;color:#1F2937;font-family:inherit;font-size:14px;font-weight:700;padding:10px 22px;border-radius:10px;" style-hover="border-color:#DA251D">← Ôn lại tổng hợp</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ═══════════ CHATBOT ═══════════ -->
+  <sc-if value="{{ pChat }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:720px;margin:0 auto;padding:40px 20px 60px;animation:fadeUp 0.4s ease;">
+      <div style="font-size:12px;font-weight:700;color:#A16207;letter-spacing:1px;margin-bottom:8px;">HỎI ĐÁP</div>
+      <h2 style="font-size:30px;font-weight:900;color:#B91C1C;margin:0 0 8px;">Chatbot bài học</h2>
+      <p style="font-size:14px;color:#6B7280;margin:0 0 20px;line-height:1.6;">Chatbot chỉ trả lời trong phạm vi nội dung bài học Chương 5. Câu hỏi ngoài phạm vi sẽ được từ chối lịch sự.</p>
+      <div style="background:#fff;border:1px solid #F0E2B6;border-radius:18px;box-shadow:0 2px 12px rgba(180,140,20,0.1);overflow:hidden;display:flex;flex-direction:column;height:520px;">
+        <div style="background:#DA251D;color:#fff;padding:13px 20px;display:flex;align-items:center;gap:10px;">
+          <div style="width:30px;height:30px;border-radius:50%;background:#FFD700;display:flex;align-items:center;justify-content:center;font-size:15px;color:#DA251D;">★</div>
+          <div><div style="font-weight:800;font-size:14px;">Trợ giảng Chương 5</div><div style="font-size:11px;color:#FFE9A8;">Chỉ trả lời trong phạm vi bài học</div></div>
+        </div>
+        <div ref="{{ chatBoxRef }}" style="flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;background:#FFFDF5;">
+          <sc-for list="{{ chatMsgs }}" as="m" hint-placeholder-count="1">
+            <div style="align-self:{{ m.align }};max-width:82%;background:{{ m.bg }};color:{{ m.color }};border:1px solid {{ m.border }};border-radius:{{ m.radius }};padding:11px 15px;font-size:13.5px;line-height:1.6;white-space:pre-wrap;">{{ m.text }}</div>
+          </sc-for>
+          <sc-if value="{{ chatBusy }}" hint-placeholder-val="{{ false }}">
+            <div style="align-self:flex-start;background:#F9F5E3;border:1px solid #F0E2B6;border-radius:14px 14px 14px 4px;padding:11px 16px;font-size:13px;color:#A16207;">Đang soạn câu trả lời…</div>
+          </sc-if>
+        </div>
+        <div style="display:flex;gap:10px;padding:14px;border-top:1px solid #F5EBCB;background:#fff;">
+          <input value="{{ chatInput }}" onChange="{{ onChatInput }}" onKeyDown="{{ onChatKey }}" placeholder="Ví dụ: Vì sao kinh tế nhà nước giữ vai trò chủ đạo?" style="flex:1;border:2px solid #F0E2B6;border-radius:10px;padding:11px 14px;font-family:inherit;font-size:13.5px;outline:none;" style-focus="border-color:#DA251D">
+          <button onClick="{{ sendChat }}" style="border:none;cursor:pointer;background:#DA251D;color:#fff;font-family:inherit;font-size:14px;font-weight:700;padding:11px 22px;border-radius:10px;" style-hover="background:#B91C1C">Gửi</button>
+        </div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+        <sc-for list="{{ chatSuggests }}" as="s" hint-placeholder-count="3">
+          <button onClick="{{ s.ask }}" style="border:1px solid #E5D9B0;cursor:pointer;background:#fff;color:#4B5563;font-family:inherit;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:999px;" style-hover="border-color:#DA251D;color:#DA251D">{{ s.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  </main>
+
+  <footer style="background:#B91C1C;color:#FECACA;text-align:center;padding:18px;font-size:12px;">
+    Nội dung biên soạn từ Giáo trình Kinh tế chính trị Mác – Lênin, Chương 5 · Website học tập tương tác
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = {
+    page: 'home',
+    concept: null,        // 'market' | 'social' | null
+    tlOpen: { 0: true },  // timeline open map
+    tlAll: false,
+    dtOpen: { 0: true },  // đặc trưng open map
+    showCmp: false,
+    accOpen: { 0: true }, // accordion open map
+    quizAnswers: {},      // qIndex -> optionIndex
+    chatMsgs: [{ who: 'bot', text: 'Chào bạn! Mình là trợ giảng cho bài "Kinh tế thị trường định hướng XHCN ở Việt Nam". Bạn muốn hỏi gì về khái niệm, tính tất yếu, đặc trưng hay hoàn thiện thể chế?' }],
+    chatInput: '',
+    chatBusy: false,
+  };
+
+  chatBoxRef = React.createRef();
+
+  TL = [
+    { moc: 'Năm 1986', title: 'Bắt đầu công cuộc Đổi mới', detail: 'Đảng ta quan niệm kinh tế hàng hóa có những mặt tích cực cần vận dụng cho xây dựng chủ nghĩa xã hội.' },
+    { moc: 'Quá trình Đổi mới', title: 'Nhận thức rõ hơn về kinh tế thị trường', detail: 'Từ tổng kết thực tiễn và nghiên cứu lý luận, Đảng nhận thức rõ hơn: kinh tế hàng hóa, kinh tế thị trường là phương thức, điều kiện tất yếu để xây dựng chủ nghĩa xã hội; từ áp dụng cơ chế thị trường đến phát triển kinh tế thị trường; từng bước cụ thể hóa mô hình và thể chế kinh tế thị trường định hướng XHCN.' },
+    { moc: 'Đại hội IX', title: 'Mô hình kinh tế tổng quát của thời kỳ quá độ', detail: 'Khẳng định: kinh tế thị trường định hướng XHCN là mô hình kinh tế tổng quát của thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta.' },
+    { moc: 'Đại hội XI', title: 'Kinh tế hàng hóa nhiều thành phần', detail: 'Khẳng định: nền kinh tế thị trường định hướng XHCN ở nước ta là nền kinh tế hàng hóa nhiều thành phần, vận hành theo cơ chế thị trường, có sự quản lý của Nhà nước, dưới sự lãnh đạo của Đảng Cộng sản.' },
+    { moc: 'Đại hội XII', title: 'Vận hành đầy đủ, đồng bộ theo quy luật thị trường', detail: 'Đưa ra quan niệm mới: nền kinh tế vận hành đầy đủ, đồng bộ theo các quy luật của kinh tế thị trường, đồng thời bảo đảm định hướng XHCN phù hợp với từng giai đoạn phát triển; là nền kinh tế thị trường hiện đại và hội nhập quốc tế, có sự quản lý của Nhà nước pháp quyền XHCN, do Đảng Cộng sản Việt Nam lãnh đạo.' },
+    { moc: 'Đại hội XIII', title: 'Tiếp tục khẳng định mô hình tổng quát', detail: 'Khẳng định: đó là mô hình kinh tế tổng quát của nước ta trong thời kỳ quá độ lên chủ nghĩa xã hội.' },
+  ];
+
+  DT = [
+    { title: 'Về mục tiêu', sub: 'Khác biệt căn bản với kinh tế thị trường tư bản chủ nghĩa', body: 'Hướng tới phát triển lực lượng sản xuất, xây dựng cơ sở vật chất – kỹ thuật của chủ nghĩa xã hội; nâng cao đời sống nhân dân, thực hiện "dân giàu, nước mạnh, dân chủ, công bằng, văn minh".', example: 'Sử dụng cơ chế thị trường để kích thích sản xuất, giải phóng sức sản xuất, thúc đẩy công nghiệp hóa, hiện đại hóa.' },
+    { title: 'Về quan hệ sở hữu và thành phần kinh tế', sub: 'Nhiều hình thức sở hữu, nhiều thành phần kinh tế', body: 'Nền kinh tế có nhiều hình thức sở hữu, nhiều thành phần kinh tế, trong đó kinh tế nhà nước giữ vai trò chủ đạo, kinh tế tư nhân là một động lực quan trọng. Các chủ thể thuộc các thành phần kinh tế bình đẳng, hợp tác, cạnh tranh cùng phát triển theo pháp luật.', example: 'Doanh nghiệp nhà nước chỉ đầu tư vào những ngành kinh tế then chốt, vừa chi phối được nền kinh tế vừa bảo đảm an ninh, quốc phòng và phục vụ lợi ích công cộng.' },
+    { title: 'Về quan hệ quản lý nền kinh tế', sub: 'Nhà nước pháp quyền XHCN, Đảng lãnh đạo, nhân dân giám sát', body: 'Nhà nước quản lý và thực hành cơ chế quản lý là Nhà nước pháp quyền XHCN của nhân dân, do nhân dân, vì nhân dân, dưới sự lãnh đạo của Đảng Cộng sản, chịu sự làm chủ và giám sát của nhân dân. Nhà nước quản lý thông qua pháp luật, chiến lược, kế hoạch, quy hoạch, cơ chế, chính sách và các công cụ kinh tế.', example: 'Nhà nước hỗ trợ các nhóm dân cư thu nhập thấp, gặp rủi ro trong cuộc sống nhằm giảm bớt phân hóa giàu – nghèo.' },
+    { title: 'Về quan hệ phân phối', sub: 'Nhiều hình thức phân phối', body: 'Thực hiện nhiều hình thức phân phối (cả đầu vào và đầu ra), trong đó phân phối theo lao động và hiệu quả kinh tế, phân phối theo phúc lợi là những hình thức phản ánh định hướng XHCN của nền kinh tế thị trường.', example: 'Người lao động được trả lương theo kết quả lao động; đồng thời hưởng an sinh xã hội, phúc lợi xã hội (BHYT, giáo dục công...).' },
+    { title: 'Về gắn tăng trưởng kinh tế với công bằng xã hội', sub: 'Tiến bộ và công bằng ngay trong từng chính sách', body: 'Phát triển kinh tế đi đôi với phát triển văn hóa – xã hội; thực hiện tiến bộ và công bằng xã hội ngay trong từng chính sách, chiến lược, quy hoạch, kế ho\u1EA1ch và từng giai đoạn phát triển. Không "hy sinh" tiến bộ và công bằng xã hội để chạy theo tăng trưởng kinh tế đơn thuần.', example: 'Đầu tư cho giáo dục, văn hóa, y tế, thể thao được coi là đầu tư cho sự phát triển bền vững.' },
+  ];
+
+  ACC = [
+    { title: 'Hoàn thiện thể chế về sở hữu, phát triển các thành phần kinh tế, các loại hình doanh nghiệp', points: [
+      'Thể chế hóa đầy đủ quyền tài sản (quyền sở hữu, sử dụng, định đoạt và hưởng lợi) của Nhà nước, tổ chức và cá nhân; bảo đảm công khai, minh bạch.',
+      'Hoàn thiện pháp luật về đất đai, tài nguyên; về đầu tư vốn nhà nước, quản lý và sử dụng tài sản công.',
+      'Hoàn thiện thể chế về sở hữu trí tuệ theo hướng khuyến khích sáng tạo; pháp luật về hợp đồng và giải quyết tranh chấp dân sự.',
+      'Thực hiện nhất quán một chế độ pháp lý kinh doanh cho các doanh nghiệp, không phân biệt hình thức sở hữu, thành phần kinh tế; bảo đảm cạnh tranh lành mạnh.',
+      'Tạo thuận lợi để kinh tế tư nhân thực sự trở thành một động lực quan trọng; hoàn thiện thể chế thu hút đầu tư nước ngoài có chuyển giao công nghệ.',
+    ]},
+    { title: 'Hoàn thiện thể chế phát triển đồng bộ các yếu tố thị trường và các loại thị trường', points: [
+      'Các yếu tố thị trường: hàng hóa, giá cả, cạnh tranh, cung – cầu... vận hành theo nguyên tắc thể chế kinh tế thị trường.',
+      'Hoàn thiện hệ thống thể chế về giá, thúc đẩy cạnh tranh, chất lượng hàng hóa, dịch vụ.',
+      'Phát triển đồng bộ, vận hành thông suốt các loại thị trường cơ bản: thị trường hàng hóa – dịch vụ, thị trường vốn, thị trường công nghệ, thị trường hàng hóa sức lao động.',
+    ]},
+    { title: 'Hoàn thiện thể chế gắn tăng trưởng với phát triển bền vững, tiến bộ, công bằng xã hội và hội nhập quốc tế', points: [
+      'Kết hợp chặt chẽ phát triển kinh tế nhanh, bền vững với phát triển xã hội bền vững; tạo cơ hội cho mọi thành viên tham gia bình đẳng và thụ hưởng công bằng thành quả phát triển.',
+      'Rà soát, bổ sung, điều chỉnh hệ thống pháp luật đáp ứng yêu cầu thực hiện các cam kết quốc tế của Việt Nam.',
+      'Đa phương hóa, đa dạng hóa hợp tác kinh tế quốc tế, không để bị lệ thuộc vào một số ít thị trường; nâng cao năng lực cạnh tranh quốc gia.',
+    ]},
+    { title: 'Hoàn thiện thể chế, nâng cao năng lực lãnh đạo của Đảng và hệ thống chính trị', points: [
+      'Xây dựng hệ thống thể chế đồng bộ để nâng cao năng lực lãnh đạo của Đảng.',
+      'Phát huy vai trò xây dựng và thực hiện thể chế kinh tế của Nhà nước.',
+      'Phát huy vai trò làm chủ của nhân dân trong hoàn thiện thể chế kinh tế thị trường định hướng XHCN.',
+    ]},
+  ];
+
+  QUIZ = [
+    { q: 'Kinh tế thị trường định hướng XHCN ở Việt Nam là nền kinh tế như thế nào?', correct: 1, options: [
+      'Nền kinh tế kế hoạch hóa tập trung có yếu tố thị trường',
+      'Nền kinh tế vận hành theo các quy luật của thị trường, hướng tới xã hội dân giàu, nước mạnh, dân chủ, công bằng, văn minh; có sự điều tiết của Nhà nước do Đảng Cộng sản Việt Nam lãnh đạo',
+      'Nền kinh tế thị trường tự do, Nhà nước không can thiệp',
+      'Nền kinh tế chỉ gồm kinh tế nhà nước và kinh tế tập thể',
+    ], explain: 'Đây là định nghĩa trong giáo trình: vận hành theo quy luật thị trường + định hướng XHCN + Nhà nước điều tiết dưới sự lãnh đạo của Đảng.' },
+    { q: 'Đại hội nào của Đảng khẳng định kinh tế thị trường định hướng XHCN là mô hình kinh tế tổng quát của thời kỳ quá độ lên CNXH ở nước ta?', correct: 2, options: ['Đại hội VI', 'Đại hội VIII', 'Đại hội IX', 'Đại hội XI'], explain: 'Đại hội IX khẳng định điều này; Đại hội XIII tiếp tục khẳng định lại.' },
+    { q: 'Phát triển kinh tế thị trường định hướng XHCN ở Việt Nam là tất yếu xuất phát từ mấy lý do cơ bản?', correct: 1, options: ['2 lý do', '3 lý do', '4 lý do', '5 lý do'], explain: '3 lý do: phù hợp xu hướng phát triển khách quan; tính ưu việt của kinh tế thị trường; phù hợp nguyện vọng của nhân dân.' },
+    { q: 'Nội dung nào KHÔNG thuộc các lý do về tính tất yếu khách quan?', correct: 3, options: [
+      'Phù hợp với xu hướng phát triển khách quan của Việt Nam',
+      'Tính ưu việt của kinh tế thị trường trong thúc đẩy phát triển',
+      'Phù hợp với nguyện vọng của nhân dân',
+      'Do yêu cầu của các tổ chức kinh tế quốc tế',
+    ], explain: 'Ba lý do trong giáo trình đều xuất phát từ điều kiện khách quan trong nước, không phải từ yêu cầu bên ngoài.' },
+    { q: 'Trong nền kinh tế thị trường định hướng XHCN, thành phần kinh tế nào giữ vai trò chủ đạo?', correct: 0, options: ['Kinh tế nhà nước', 'Kinh tế tư nhân', 'Kinh tế tập thể', 'Kinh tế có vốn đầu tư nước ngoài'], explain: 'Kinh tế nhà nước giữ vai trò chủ đạo; kinh tế tư nhân là một động lực quan trọng.' },
+    { q: 'Hình thức phân phối nào phản ánh định hướng XHCN của nền kinh tế thị trường?', correct: 2, options: [
+      'Phân phối theo giá cả thị trường',
+      'Phân phối bình quân, chia đều của cải',
+      'Phân phối theo lao động và hiệu quả kinh tế, phân phối theo phúc lợi',
+      'Phân phối theo mức đóng góp vốn',
+    ], explain: 'Giáo trình nêu rõ: phân phối theo lao động và hiệu quả kinh tế, phân phối theo phúc lợi là những hình thức phản ánh định hướng XHCN.' },
+    { q: '"Thể chế" được hiểu là gì?', correct: 1, options: [
+      'Hệ thống các doanh nghiệp trong nền kinh tế',
+      'Những quy tắc, luật pháp, bộ máy quản lý và cơ chế vận hành nhằm điều chỉnh các hoạt động của con người trong một chế độ xã hội',
+      'Các chính sách tiền tệ của ngân hàng trung ương',
+      'Bộ máy hành chính của Chính phủ',
+    ], explain: 'Đây là định nghĩa thể chế trong giáo trình.' },
+    { q: 'Có mấy lý do phải hoàn thiện thể chế kinh tế thị trường định hướng XHCN?', correct: 1, options: ['2 lý do', '3 lý do: chưa đồng bộ, chưa đầy đủ, kém hiệu lực – hiệu quả', '4 lý do', '5 lý do'], explain: 'Ba lý do: thể chế còn chưa đồng bộ; hệ thống thể chế chưa đầy đủ; hệ thống thể chế còn kém hiệu lực, hiệu quả, thiếu các yếu tố và các loại thị trường.' },
+    { q: 'Đại hội XII của Đảng đưa ra quan niệm mới nào về nền kinh tế thị trường định hướng XHCN?', correct: 0, options: [
+      'Nền kinh tế vận hành đầy đủ, đồng bộ theo các quy luật của kinh tế thị trường, đồng thời bảo đảm định hướng XHCN',
+      'Nền kinh tế khép kín, tự cấp tự túc',
+      'Nền kinh tế do thị trường hoàn toàn quyết định',
+      'Nền kinh tế chỉ gồm doanh nghiệp nhà nước',
+    ], explain: 'Đại hội XII: vận hành đầy đủ, đồng bộ theo quy luật kinh tế thị trường, bảo đảm định hướng XHCN, là nền kinh tế thị trường hiện đại và hội nhập quốc tế.' },
+    { q: 'Nội dung hoàn thiện thể chế kinh tế thị trường định hướng XHCN gồm mấy nhóm chính?', correct: 2, options: ['2 nhóm', '3 nhóm', '4 nhóm', '6 nhóm'], explain: '4 nhóm: (1) sở hữu, thành phần kinh tế, doanh nghiệp; (2) các yếu tố và các loại thị trường; (3) gắn tăng trưởng với bền vững, công bằng xã hội, hội nhập; (4) nâng cao năng lực lãnh đạo của Đảng và hệ thống chính trị.' },
+  ];
+
+  LESSON = `KHÁI NIỆM: Kinh tế thị trường (KTTT) định hướng XHCN là nền kinh tế vận hành theo các quy luật của thị trường, đồng thời hướng tới từng bước xác lập xã hội dân giàu, nước mạnh, dân chủ, công bằng, văn minh; có sự điều tiết của Nhà nước do Đảng Cộng sản Việt Nam lãnh đạo.
+QUÁ TRÌNH NHẬN THỨC: 1986 bắt đầu Đổi mới, coi kinh tế hàng hóa có mặt tích cực cần vận dụng. Trong Đổi mới: kinh tế hàng hóa/thị trường là phương thức, điều kiện tất yếu xây dựng CNXH. Đại hội IX: là mô hình kinh tế tổng quát của thời kỳ quá độ. Đại hội XI: kinh tế hàng hóa nhiều thành phần, vận hành theo cơ chế thị trường, có quản lý của Nhà nước, dưới sự lãnh đạo của Đảng. Đại hội XII: vận hành đầy đủ, đồng bộ theo quy luật KTTT, bảo đảm định hướng XHCN, hiện đại, hội nhập quốc tế. Đại hội XIII: tiếp tục khẳng định là mô hình kinh tế tổng quát.
+TÍNH TẤT YẾU (3 lý do): (1) phù hợp xu hướng phát triển khách quan — sản xuất hàng hóa phát triển cao tất yếu hình thành KTTT; (2) tính ưu việt của KTTT — phân bổ nguồn lực hiệu quả, thúc đẩy lực lượng sản xuất, năng suất, công nghệ; (3) phù hợp nguyện vọng nhân dân mong muốn dân giàu, nước mạnh, dân chủ, công bằng, văn minh.
+5 ĐẶC TRƯNG: (1) Mục tiêu: phát triển lực lượng sản xuất, xây dựng cơ sở vật chất - kỹ thuật của CNXH, nâng cao đời sống nhân dân. (2) Sở hữu và thành phần kinh tế: nhiều hình thức sở hữu, nhiều thành phần; kinh tế nhà nước chủ đạo, kinh tế tư nhân là động lực quan trọng; các thành phần bình đẳng, hợp tác, cạnh tranh theo pháp luật. (3) Quản lý: Nhà nước pháp quyền XHCN của dân, do dân, vì dân quản lý, dưới sự lãnh đạo của Đảng, sự làm chủ giám sát của nhân dân; quản lý qua pháp luật, chiến lược, kế hoạch, quy hoạch, chính sách. (4) Phân phối: nhiều hình thức; phân phối theo lao động và hiệu quả kinh tế, theo phúc lợi phản ánh định hướng XHCN. (5) Gắn tăng trưởng kinh tế với công bằng xã hội: tiến bộ, công bằng xã hội ngay trong từng chính sách, từng giai đoạn; không hy sinh công bằng để chạy theo tăng trưởng đơn thuần; không cào bằng.
+THỂ CHẾ: Thể chế = quy tắc, luật pháp, bộ máy quản lý, cơ chế vận hành điều chỉnh hoạt động con người trong một chế độ xã hội. Thể chế kinh tế = hệ thống quy tắc, pháp luật, bộ máy, cơ chế điều chỉnh hành vi các chủ thể kinh tế. Thể chế KTTT định hướng XHCN = hệ thống đường lối, chủ trương, luật pháp, chính sách xác lập cơ chế vận hành, điều chỉnh chức năng, hoạt động, quan hệ lợi ích của các chủ thể, hướng tới xác lập đồng bộ các yếu tố thị trường, các loại thị trường hiện đại.
+LÝ DO HOÀN THIỆN THỂ CHẾ (3): chưa đồng bộ; chưa đầy đủ; kém hiệu lực - hiệu quả, thiếu các yếu tố và các loại thị trường.
+NỘI DUNG HOÀN THIỆN (4 nhóm): (1) sở hữu, thành phần kinh tế, loại hình doanh nghiệp — quyền tài sản, đất đai, tài nguyên, tài sản công, sở hữu trí tuệ, hợp đồng, một chế độ pháp lý kinh doanh chung, phát triển kinh tế tư nhân, thu hút FDI có chọn lọc; (2) các yếu tố thị trường (hàng hóa, giá cả, cạnh tranh, cung cầu) và các loại thị trường (hàng hóa dịch vụ, vốn, công nghệ, sức lao động); (3) gắn tăng trưởng với bền vững, tiến bộ, công bằng xã hội và hội nhập quốc tế — thực hiện cam kết quốc tế, đa phương hóa, đa dạng hóa; (4) nâng cao năng lực lãnh đạo của Đảng, vai trò Nhà nước, phát huy vai trò làm chủ của nhân dân.
+VÍ DỤ MINH HỌA: Việt Nam gia nhập WTO 11/01/2007; kinh tế tư nhân >940 nghìn doanh nghiệp, >5 triệu hộ kinh doanh, ~50% GDP, ~82% lao động; Quỹ bình ổn giá xăng dầu; chính sách an sinh, giáo dục, y tế.`;
+
+  go(page) {
+    this.setState({ page });
+    try { window.scrollTo({ top: 0 }); } catch (e) {}
+  }
+
+  toggleMap(key, i) {
+    this.setState(s => {
+      const m = Object.assign({}, s[key]);
+      m[i] = !m[i];
+      return { [key]: m };
+    });
+  }
+
+  async sendChat(textOverride) {
+    const text = (typeof textOverride === 'string' ? textOverride : this.state.chatInput).trim();
+    if (!text || this.state.chatBusy) return;
+    this.setState(s => ({ chatMsgs: s.chatMsgs.concat({ who: 'user', text }), chatInput: '', chatBusy: true }), () => this.scrollChat());
+    let reply;
+    try {
+      const history = this.state.chatMsgs.slice(-8).map(m => ({ role: m.who === 'user' ? 'user' : 'assistant', content: m.text }));
+      reply = await window.claude.complete({
+        system: 'Bạn là trợ giảng cho bài học "Kinh tế thị trường định hướng xã hội chủ nghĩa ở Việt Nam" (Chương 5, giáo trình Kinh tế chính trị Mác – Lênin). CHỈ trả lời dựa trên nội dung bài học dưới đây. Nếu câu hỏi nằm ngoài phạm vi bài học (chính trị thời sự, so sánh sâu CNTB với CNXH, luật kinh tế chi tiết, dự báo kinh tế, số liệu ngoài bài...), hãy từ chối lịch sự và gợi ý người học hỏi về nội dung trong bài. Trả lời bằng tiếng Việt, ngắn gọn (dưới 180 từ), dễ hiểu với sinh viên, không dùng markdown đậm/nghiêng, có thể xuống dòng và gạch đầu dòng đơn giản.\n\n=== NỘI DUNG BÀI HỌC ===\n' + this.LESSON,
+        messages: history,
+        max_tokens: 700,
+      });
+    } catch (e) {
+      reply = 'Xin lỗi, hiện chưa kết nối được với trợ giảng. Bạn thử lại sau nhé.';
+    }
+    this.setState(s => ({ chatMsgs: s.chatMsgs.concat({ who: 'bot', text: reply }), chatBusy: false }), () => this.scrollChat());
+  }
+
+  scrollChat() {
+    const el = this.chatBoxRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }
+
+  renderVals() {
+    const s = this.state;
+    const P = s.page;
+    const go = p => () => this.go(p);
+
+    const pages = [
+      ['home', 'Trang chủ'], ['khainiem', 'Khái niệm'], ['timeline', 'Nhận thức'],
+      ['tatyeu', 'Tính tất yếu'], ['dactrung', 'Đặc trưng'], ['theche', 'Thể chế'],
+      ['hoanthien', 'Hoàn thiện'], ['vidu', 'Ví dụ'], ['tonghop', 'Tổng hợp'],
+      ['quiz', 'Quiz'], ['chat', 'Chatbot'],
+    ];
+    const navItems = pages.map(([id, label]) => ({
+      label,
+      go: go(id),
+      bg: P === id ? '#FFD700' : 'rgba(255,255,255,0.14)',
+      color: P === id ? '#7C2D12' : '#fff',
+      fw: P === id ? '800' : '600',
+    }));
+
+    // Khái niệm
+    const showMarket = s.concept === 'market';
+    const showSocial = s.concept === 'social';
+
+    // Timeline
+    const tlItems = this.TL.map((t, i) => {
+      const open = s.tlAll || !!s.tlOpen[i];
+      return {
+        moc: t.moc, title: t.title, detail: t.detail, open,
+        toggle: () => this.toggleMap('tlOpen', i),
+        chev: open ? '▲' : '▼',
+        dotBg: i % 2 === 0 ? '#DA251D' : '#EAB308',
+        border: open ? '#DA251D' : '#F0E2B6',
+        badgeBg: i % 2 === 0 ? '#FEF2F2' : '#FFFBEB',
+        badgeColor: i % 2 === 0 ? '#DA251D' : '#A16207',
+      };
+    });
+
+    // Đặc trưng
+    const dtItems = this.DT.map((d, i) => {
+      const open = !!s.dtOpen[i];
+      return {
+        num: i + 1, title: d.title, sub: d.sub, body: d.body, example: d.example, open,
+        toggle: () => this.toggleMap('dtOpen', i),
+        chev: open ? '▲' : '▼',
+        border: open ? '#DA251D' : '#F0E2B6',
+        iconBg: open ? '#DA251D' : '#FEF2F2',
+        iconColor: open ? '#fff' : '#DA251D',
+      };
+    });
+
+    // Accordion hoàn thiện
+    const accItems = this.ACC.map((a, i) => {
+      const open = !!s.accOpen[i];
+      return {
+        num: i + 1, title: a.title, open,
+        points: a.points.map(text => ({ text })),
+        toggle: () => this.toggleMap('accOpen', i),
+        chev: open ? '▲' : '▼',
+        border: open ? '#DA251D' : '#F0E2B6',
+        headBg: open ? '#FFFBEB' : '#fff',
+      };
+    });
+
+    // Quiz
+    let score = 0, answeredCount = 0;
+    const letters = ['A', 'B', 'C', 'D'];
+    const quizItems = this.QUIZ.map((q, qi) => {
+      const picked = s.quizAnswers[qi];
+      const answered = picked !== undefined;
+      if (answered) { answeredCount++; if (picked === q.correct) score++; }
+      const isRight = answered && picked === q.correct;
+      return {
+        num: qi + 1, q: q.q, answered, explain: q.explain,
+        fbBg: isRight ? '#F0FDF4' : '#FEF2F2',
+        fbColor: isRight ? '#15803D' : '#DA251D',
+        fbTitle: isRight ? 'Chính xác!' : 'Chưa đúng.',
+        options: q.options.map((text, oi) => {
+          let border = '#F0E2B6', bg = '#fff', color = '#1F2937', mark = '';
+          if (answered) {
+            if (oi === q.correct) { border = '#16A34A'; bg = '#F0FDF4'; color = '#15803D'; mark = '✓'; }
+            else if (oi === picked) { border = '#DA251D'; bg = '#FEF2F2'; color = '#B91C1C'; mark = '✗'; }
+            else { color = '#9CA3AF'; }
+          }
+          return {
+            text, letter: letters[oi] + '.', border, bg, color, mark,
+            pick: () => {
+              if (this.state.quizAnswers[qi] !== undefined) return;
+              this.setState(st => ({ quizAnswers: Object.assign({}, st.quizAnswers, { [qi]: oi }) }));
+            },
+          };
+        }),
+      };
+    });
+    const quizDone = answeredCount === this.QUIZ.length;
+    let quizVerdict = '';
+    if (quizDone) {
+      quizVerdict = score >= 9 ? 'Xuất sắc! Bạn nắm rất chắc bài học.' :
+        score >= 7 ? 'Tốt! Xem lại vài phần chưa chắc nhé.' :
+        score >= 5 ? 'Đạt. Nên ôn lại trang Tổng hợp và làm lại.' :
+        'Chưa đạt. Hãy ôn lại bài học rồi thử lại nhé!';
+    }
+
+    // Chat
+    const chatMsgs = s.chatMsgs.map(m => ({
+      text: m.text,
+      align: m.who === 'user' ? 'flex-end' : 'flex-start',
+      bg: m.who === 'user' ? '#DA251D' : '#F9F5E3',
+      color: m.who === 'user' ? '#fff' : '#1F2937',
+      border: m.who === 'user' ? '#DA251D' : '#F0E2B6',
+      radius: m.who === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
+    }));
+    const chatSuggests = [
+      'Vì sao kinh tế nhà nước giữ vai trò chủ đạo?',
+      '3 lý do tất yếu là gì?',
+      'Đại hội XII nói gì về mô hình này?',
+      'Thể chế kinh tế là gì?',
+    ].map(label => ({ label, ask: () => this.sendChat(label) }));
+
+    return {
+      navItems,
+      pHome: P === 'home', pKhaiNiem: P === 'khainiem', pTimeline: P === 'timeline',
+      pTatYeu: P === 'tatyeu', pDacTrung: P === 'dactrung', pTheChe: P === 'theche',
+      pHoanThien: P === 'hoanthien', pViDu: P === 'vidu', pTongHop: P === 'tonghop',
+      pQuiz: P === 'quiz', pChat: P === 'chat',
+      goKhaiNiem: go('khainiem'), goTimeline: go('timeline'), goTatYeu: go('tatyeu'),
+      goDacTrung: go('dactrung'), goTheChe: go('theche'), goHoanThien: go('hoanthien'),
+      goViDu: go('vidu'), goTongHop: go('tonghop'), goQuiz: go('quiz'), goChat: go('chat'),
+      // khái niệm
+      showMarket, showSocial,
+      toggleMarket: () => this.setState({ concept: showMarket ? null : 'market' }),
+      toggleSocial: () => this.setState({ concept: showSocial ? null : 'social' }),
+      marketBorder: showMarket ? '#DA251D' : '#F0E2B6',
+      marketBg: showMarket ? '#FEF2F2' : '#fff',
+      marketHint: showMarket ? 'Đang mở — nhấn để thu gọn' : 'Cung – cầu · Giá cả · Cạnh tranh · Phân bổ nguồn lực',
+      socialBorder: showSocial ? '#EAB308' : '#F0E2B6',
+      socialBg: showSocial ? '#FFFBEB' : '#fff',
+      socialHint: showSocial ? 'Đang mở — nhấn để thu gọn' : 'Dân giàu · Nước mạnh · Dân chủ · Công bằng · Văn minh',
+      // timeline
+      tlItems,
+      toggleTlAll: () => this.setState(st => ({ tlAll: !st.tlAll, tlOpen: {} })),
+      tlAllLabel: s.tlAll ? 'Xem ngắn gọn' : 'Xem chi tiết tất cả',
+      // đặc trưng
+      dtItems,
+      showCmp: s.showCmp,
+      toggleCmp: () => this.setState(st => ({ showCmp: !st.showCmp })),
+      cmpBtnBg: s.showCmp ? '#DA251D' : '#fff',
+      cmpBtnColor: s.showCmp ? '#fff' : '#DA251D',
+      cmpBtnLabel: s.showCmp ? 'Ẩn bảng so sánh' : 'So sánh với kinh tế thị trường thông thường',
+      // hoàn thiện
+      accItems,
+      // quiz
+      quizItems, quizScore: score, quizTotal: this.QUIZ.length, quizDone, quizVerdict,
+      resetQuiz: () => this.setState({ quizAnswers: {} }),
+      // chat
+      chatMsgs, chatInput: s.chatInput, chatBusy: s.chatBusy,
+      chatBoxRef: this.chatBoxRef,
+      chatSuggests,
+      onChatInput: e => this.setState({ chatInput: e.target.value }),
+      onChatKey: e => { if (e.key === 'Enter') this.sendChat(); },
+      sendChat: () => this.sendChat(),
+    };
+  }
+}
+</script>
+</body>
+</html>
