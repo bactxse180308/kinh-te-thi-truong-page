@@ -1,14 +1,36 @@
 /* ═══════════════════════════════════════════════════════════════
    /api/chat — Trợ giảng AI (Gemini) cho website Chương 5
-   Chạy trên Vercel Serverless (Node). API key chỉ nằm ở server,
-   đặt trong biến môi trường GEMINI_API_KEY (Settings → Environment
-   Variables trên Vercel). Không có dependency ngoài — dùng fetch
-   có sẵn của Node 18+.
+   Chạy trên Vercel Serverless (Node), không dependency ngoài.
+
+   Biến môi trường (Vercel → Settings → Environment Variables):
+   - AI_API_KEYS : một hoặc nhiều key, phân tách bằng DẤU PHẨY.
+                   Khi một key hết hạn mức / bị khóa (429, 403, 401)
+                   hoặc máy chủ lỗi (5xx), tự XOAY VÒNG sang key kế
+                   tiếp trong cùng request; key chết được ghi nhớ để
+                   các request sau bỏ qua luôn.
+   - AI_BASE_URL : endpoint OpenAI-compatible của Gemini. Mặc định
+                   https://generativelanguage.googleapis.com/v1beta/openai
+   - AI_MODEL    : mặc định gemini-2.5-flash-lite
+   (Vẫn nhận GEMINI_API_KEY / GEMINI_MODEL cũ để tương thích ngược.)
    ═══════════════════════════════════════════════════════════════ */
 
 'use strict';
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+const BASE_URL = (process.env.AI_BASE_URL ||
+  'https://generativelanguage.googleapis.com/v1beta/openai').replace(/\/+$/, '');
+const MODEL = process.env.AI_MODEL || process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+
+function getKeys() {
+  const raw = process.env.AI_API_KEYS || process.env.GEMINI_API_KEY || '';
+  return raw.split(',').map(s => s.trim()).filter(Boolean);
+}
+
+/* Con trỏ key đang dùng — sống theo warm instance của serverless.
+   Khi key thứ i cạn hạn mức, request sau khởi đầu thẳng từ key kế tiếp. */
+let keyCursor = 0;
+
+/* Các mã lỗi cho phép thử key khác; 400 là lỗi request → không xoay. */
+const ROTATE_STATUS = new Set([401, 403, 429, 500, 502, 503]);
 
 /* ---------------------------------------------------------------
    TRI THỨC BÀI HỌC — biên soạn từ file giáo trình
@@ -104,11 +126,75 @@ QUY TẮC BẮT BUỘC — tuân thủ tuyệt đối, không có ngoại lệ:
 === NỘI DUNG BÀI HỌC (nguồn duy nhất được phép sử dụng) ===
 ${KNOWLEDGE}`;
 
+/* Giao diện chat hiển thị văn bản thuần — quét sạch markdown lọt lưới */
+function toPlainText(s) {
+  return s
+    .replace(/^[ \t]*[*-][ \t]+/gm, '• ')   // "* item" / "- item" → "• item"
+    .replace(/\*\*(.+?)\*\*/g, '$1')        // **đậm** → chữ thường
+    .replace(/^#{1,6}[ \t]+/gm, '')         // "## Tiêu đề" → "Tiêu đề"
+    .replace(/`([^`]+)`/g, '$1')            // `code` → chữ thường
+    .trim();
+}
+
 /* ---------------------------------------------------------------
-   Handler
+   Gọi 1 lần tới Gemini (endpoint OpenAI-compatible) với 1 key.
+   Trả về: { ok:true, reply } | { ok:false, rotate, error }
+   --------------------------------------------------------------- */
+async function askGemini(apiKey, messages, timeoutMs) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const r = await fetch(BASE_URL + '/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + apiKey,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages,
+        temperature: 0.4,
+        max_tokens: 1024,
+      }),
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+
+    if (!r.ok) {
+      const detail = await r.text().catch(() => '');
+      console.error('Gemini error', r.status, detail.slice(0, 300));
+      return { ok: false, rotate: ROTATE_STATUS.has(r.status), error: 'Gemini API lỗi ' + r.status };
+    }
+
+    const data = await r.json();
+    const choice = data.choices && data.choices[0];
+    const reply = choice && choice.message && typeof choice.message.content === 'string'
+      ? choice.message.content.trim()
+      : '';
+
+    // Bị bộ lọc an toàn chặn / nội dung rỗng → trả lời từ chối chuẩn, không xoay key
+    if (!reply) {
+      return {
+        ok: true,
+        reply:
+          'Xin lỗi, mình không thể trả lời câu hỏi này. Bạn hãy hỏi về nội dung bài học Chương 5 nhé — ví dụ: khái niệm, 3 lý do tất yếu, 5 đặc trưng, hay 4 nhóm nội dung hoàn thiện thể chế.',
+      };
+    }
+    return { ok: true, reply: toPlainText(reply) };
+  } catch (err) {
+    clearTimeout(timer);
+    console.error('Gemini fetch failed:', err && err.message);
+    // Lỗi mạng / timeout: cho phép thử key khác (có thể do key bị chặn)
+    return { ok: false, rotate: true, error: 'Không gọi được Gemini API' };
+  }
+}
+
+/* ---------------------------------------------------------------
+   Handler — xoay vòng key khi hết hạn mức
    --------------------------------------------------------------- */
 const MAX_MSG_LEN = 600;
 const MAX_HISTORY = 8;
+const TOTAL_BUDGET_MS = 9000;   // Vercel Hobby giới hạn ~10s
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -116,9 +202,9 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return res.status(503).json({ error: 'GEMINI_API_KEY chưa được cấu hình trên server' });
+  const keys = getKeys();
+  if (!keys.length) {
+    return res.status(503).json({ error: 'AI_API_KEYS chưa được cấu hình trên server' });
   }
 
   const body = req.body || {};
@@ -127,69 +213,43 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Thiếu câu hỏi' });
   }
 
-  // Lịch sử hội thoại (tùy chọn) — cắt gọn để chống lạm dụng
+  // Lịch sử hội thoại (tùy chọn) — cắt gọn để chống lạm dụng.
+  // Định dạng OpenAI: role 'model' của client → 'assistant'.
   const history = Array.isArray(body.history)
     ? body.history
         .filter(m => m && (m.role === 'user' || m.role === 'model') && typeof m.text === 'string')
         .slice(-MAX_HISTORY)
-        .map(m => ({ role: m.role, parts: [{ text: m.text.slice(0, MAX_MSG_LEN) }] }))
+        .map(m => ({ role: m.role === 'model' ? 'assistant' : 'user', content: m.text.slice(0, MAX_MSG_LEN) }))
     : [];
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+  const messages = [
+    { role: 'system', content: SYSTEM_INSTRUCTION },
+    ...history,
+    { role: 'user', content: message },
+  ];
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 9000);
+  // Thử lần lượt các key, bắt đầu từ key đang hoạt động gần nhất (keyCursor).
+  const deadline = Date.now() + TOTAL_BUDGET_MS;
+  let lastError = 'Gemini API không phản hồi';
 
-  try {
-    const r = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
-      },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-        contents: [...history, { role: 'user', parts: [{ text: message }] }],
-        generationConfig: {
-          temperature: 0.4,
-          maxOutputTokens: 512,
-        },
-      }),
-      signal: controller.signal,
-    });
-    clearTimeout(timer);
+  for (let i = 0; i < keys.length; i++) {
+    const idx = (keyCursor + i) % keys.length;
+    const remaining = deadline - Date.now();
+    if (remaining < 1500) break;                       // hết quỹ thời gian
 
-    if (!r.ok) {
-      const detail = await r.text().catch(() => '');
-      console.error('Gemini error', r.status, detail.slice(0, 500));
-      return res.status(502).json({ error: 'Gemini API lỗi ' + r.status });
+    const result = await askGemini(keys[idx], messages, Math.min(remaining, 8000));
+    if (result.ok) {
+      if (idx !== keyCursor) {
+        console.log('Đã xoay vòng API key: #' + keyCursor + ' → #' + idx);
+        keyCursor = idx;                               // ghi nhớ key sống
+      }
+      return res.status(200).json({ reply: result.reply });
     }
 
-    const data = await r.json();
-
-    // Bị chặn bởi bộ lọc an toàn → coi như ngoài phạm vi
-    if (data.promptFeedback && data.promptFeedback.blockReason) {
-      return res.status(200).json({
-        reply:
-          'Xin lỗi, mình không thể trả lời câu hỏi này. Bạn hãy hỏi về nội dung bài học Chương 5 nhé — ví dụ: khái niệm, 3 lý do tất yếu, 5 đặc trưng, hay 4 nhóm nội dung hoàn thiện thể chế.',
-      });
-    }
-
-    const reply =
-      data.candidates &&
-      data.candidates[0] &&
-      data.candidates[0].content &&
-      data.candidates[0].content.parts &&
-      data.candidates[0].content.parts.map(p => p.text || '').join('').trim();
-
-    if (!reply) {
-      return res.status(502).json({ error: 'Gemini không trả về nội dung' });
-    }
-
-    return res.status(200).json({ reply });
-  } catch (err) {
-    clearTimeout(timer);
-    console.error('Gemini fetch failed:', err && err.message);
-    return res.status(502).json({ error: 'Không gọi được Gemini API' });
+    lastError = result.error;
+    if (!result.rotate) break;                         // lỗi 400: tại request, xoay vô ích
+    console.warn('Key #' + idx + ' lỗi (' + result.error + ') — thử key kế tiếp');
   }
+
+  return res.status(502).json({ error: lastError });
 };

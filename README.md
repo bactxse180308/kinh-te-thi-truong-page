@@ -54,8 +54,9 @@ Gồm 10 trang tĩnh (bài học, timeline, bảng so sánh, tổng hợp, quiz)
 
    | Name | Value |
    |---|---|
-   | `GEMINI_API_KEY` | key lấy ở bước 1 |
-   | `GEMINI_MODEL` *(tùy chọn)* | mặc định `gemini-2.5-flash-lite`; có thể đổi `gemini-2.5-flash` |
+   | `AI_API_KEYS` | **một hoặc nhiều key, phân tách bằng dấu phẩy** — khi một key hết hạn mức (429/403/401) server tự xoay vòng sang key kế tiếp |
+   | `AI_BASE_URL` *(tùy chọn)* | mặc định `https://generativelanguage.googleapis.com/v1beta/openai` |
+   | `AI_MODEL` *(tùy chọn)* | mặc định `gemini-2.5-flash-lite`; có thể đổi `gemini-2.5-flash` |
 
    Sau đó **Redeploy** để biến môi trường có hiệu lực.
 
