@@ -18,7 +18,7 @@
 
 const BASE_URL = (process.env.AI_BASE_URL ||
   'https://generativelanguage.googleapis.com/v1beta/openai').replace(/\/+$/, '');
-const MODEL = process.env.AI_MODEL || process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+const MODEL = process.env.AI_MODEL || process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 
 function getKeys() {
   const raw = process.env.AI_API_KEYS || process.env.GEMINI_API_KEY || '';
@@ -155,6 +155,10 @@ async function askGemini(apiKey, messages, timeoutMs) {
         messages,
         temperature: 0.4,
         max_tokens: 1024,
+        // Tắt "thinking" của Gemini 2.5: trả lời chỉ ~2-3s (thay vì 5-8s và
+        // hay timeout), tránh việc token suy luận ăn hết ngân sách khiến nội
+        // dung bị cắt cụt. Với flash-lite (không có thinking) đây là no-op.
+        reasoning_effort: 'none',
       }),
       signal: controller.signal,
     });
