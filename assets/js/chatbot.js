@@ -261,7 +261,7 @@
     var useAPI = apiUsable && Date.now() > apiDownUntil;
     (useAPI ? callAPI(question) : Promise.resolve(null)).then(function (aiReply) {
       if (aiReply) { finish(aiReply, true); return; }
-      if (useAPI) apiDownUntil = Date.now() + 120000;
+      if (useAPI) apiDownUntil = Date.now() + 30000;
       var answer = localAnswer(question);
       var delay = useAPI ? 0 : (reduceMotion ? 60 : Math.min(320 + answer.length * 0.8, 900));
       setTimeout(function () { finish(answer, false); }, delay);
