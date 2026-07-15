@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quiz tổng hợp — Kinh tế thị trường định hướng XHCN</title>
-<meta name="description" content="Quiz 10 câu bám sát Chương 5 Kinh tế chính trị Mác – Lênin: chọn đáp án, chấm ngay, có giải thích chi tiết từng câu.">
-<meta property="og:title" content="Quiz tổng hợp Chương 5">
-<meta property="og:description" content="10 câu trắc nghiệm — chấm ngay, giải thích rõ, có bảng điểm.">
+<title>Ai là triệu phú — Kinh tế thị trường định hướng XHCN</title>
+<meta name="description" content="Game «Ai là triệu phú» ôn Chương 5 Kinh tế chính trị Mác – Lênin: 15 câu leo thang tiền, có 50:50 và gọi điện người thân.">
+<meta property="og:title" content="Ai là triệu phú — Chương 5">
+<meta property="og:description" content="15 câu leo thang tiền, mốc bảo hiểm, trợ giúp 50:50 và gọi điện người thân.">
 <meta name="theme-color" content="#140E09">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23A61B1B'/%3E%3Cpath%20d='M32%2011l6.2%2013.9%2015.1%201.6-11.3%2010.1%203.2%2014.8L32%2043.8l-13.2%207.6%203.2-14.8L10.7%2026.5l15.1-1.6z'%20fill='%23E3B84C'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/trieu-phu.css">
 </head>
 <body>
 <a class="skip-link" href="#noi-dung">Bỏ qua điều hướng — vào nội dung chính</a>
@@ -57,38 +58,74 @@
   <div class="container">
 
     <div class="page-head">
-      <p class="kicker">Bài 8 / 8 · Kiểm tra</p>
+      <p class="kicker">Bài 8 / 8 · Trò chơi ôn tập</p>
       <div class="head-with-seal">
-        <span class="seal" aria-hidden="true">✓</span>
+        <span class="seal" aria-hidden="true">★</span>
         <div>
-          <h1 class="page-title">Quiz <em>tổng hợp</em></h1>
-          <p class="page-lead"><strong>10 câu</strong> bám sát nội dung bài học. Mỗi câu chỉ chọn một lần — chọn xong sẽ thấy đáp án đúng và lời giải thích ngay.</p>
+          <h1 class="page-title">Ai là <em>triệu phú</em></h1>
+          <p class="page-lead"><strong>15 câu</strong> leo thang tiền, bám sát Chương 5. Trả lời đúng để tiến lên — có <strong>mốc bảo hiểm</strong> và hai quyền trợ giúp: <strong>50:50</strong> và <strong>gọi điện người thân</strong>.</p>
         </div>
       </div>
     </div>
 
-    <section class="section" aria-labelledby="quiz-title" style="padding-top:0">
-      <h2 id="quiz-title" class="visually-hidden">Bài trắc nghiệm</h2>
+    <section class="section" aria-labelledby="alt-title" style="padding-top:0">
+      <h2 id="alt-title" class="visually-hidden">Game Ai là triệu phú</h2>
 
       <noscript>
         <div class="dinh-nghia">
           <span class="label">Cần JavaScript</span>
-          <p>Quiz cần bật JavaScript để chấm điểm. Trong lúc đó, bạn có thể ôn tập tại trang <a href="tong-hop.html">Tổng hợp kiến thức</a>.</p>
+          <p>Game cần bật JavaScript để chơi. Trong lúc đó, bạn có thể ôn tập tại trang <a href="tong-hop.html">Tổng hợp kiến thức</a>.</p>
         </div>
       </noscript>
 
-      <div class="quiz-bar" id="quiz-bar" hidden>
-        <span class="score">Điểm: <span id="quiz-score">0</span>/<span id="quiz-total">10</span></span>
-        <div class="track" role="progressbar" aria-label="Tiến độ làm bài" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="quiz-progress">
-          <div class="fill" id="quiz-fill"></div>
-        </div>
-        <span id="quiz-answered" style="font-size:.85rem;color:var(--muted)">0/10 câu</span>
+      <!-- Màn mở đầu -->
+      <div class="alt-start" id="alt-start">
+        <span class="start-seal" aria-hidden="true">★</span>
+        <h2>Sẵn sàng chinh phục 150 triệu?</h2>
+        <p class="section-note" style="margin:.3rem auto .2rem">Trả lời đúng 15 câu về Kinh tế thị trường định hướng XHCN để trở thành nhà triệu phú.</p>
+        <ul class="alt-rules">
+          <li><b>15 câu</b> từ dễ đến khó, leo dần thang tiền tới <b>150.000.000 đ</b>.</li>
+          <li><b>Mốc bảo hiểm</b> ở câu 5 (2 triệu) và câu 10 (22 triệu) — vượt qua là chắc chắn giữ được.</li>
+          <li>Chọn đáp án rồi bấm <b>Chốt đáp án</b>. Trả lời sai sẽ dừng cuộc chơi.</li>
+          <li>Hai quyền trợ giúp mỗi lượt: <b>50:50</b> và <b>gọi điện người thân</b>.</li>
+          <li>Có thể <b>Dừng cuộc chơi</b> bất cứ lúc nào để giữ số tiền đang có.</li>
+        </ul>
+        <button class="btn btn-gold" id="alt-btn-start">Bắt đầu chơi →</button>
       </div>
 
-      <div id="quiz-list"></div>
-      <div id="quiz-live" class="visually-hidden" aria-live="polite"></div>
-      <div id="quiz-result"></div>
+      <!-- Sân chơi -->
+      <div class="alt-arena" id="alt-game" hidden>
+        <div class="alt-main">
+          <div class="alt-qbox">
+            <span class="alt-qnum" id="alt-qnum">Câu 1</span>
+            <p class="alt-qtext" id="alt-qtext"></p>
+            <div class="alt-options" id="alt-options" role="group" aria-label="Các đáp án"></div>
+            <div class="alt-bar">
+              <div class="alt-lifelines" role="group" aria-label="Quyền trợ giúp">
+                <button type="button" class="lifeline" id="alt-fifty"><span class="li-ic" aria-hidden="true">50:50</span><span>Loại 2 sai</span></button>
+                <button type="button" class="lifeline" id="alt-phone"><span class="li-ic" aria-hidden="true">📞</span><span>Gọi người thân</span></button>
+              </div>
+              <button type="button" class="btn btn-ghost" id="alt-walk">Dừng cuộc chơi</button>
+              <button type="button" class="btn btn-gold" id="alt-lock" disabled>Chốt đáp án</button>
+            </div>
+          </div>
+        </div>
+        <aside class="alt-ladder-wrap" aria-label="Thang tiền thưởng">
+          <div class="alt-ladder" id="alt-ladder"></div>
+        </aside>
+      </div>
+
+      <div id="alt-live" class="visually-hidden" aria-live="polite"></div>
+      <div id="alt-result" hidden></div>
     </section>
+
+    <!-- Modal gọi điện người thân -->
+    <div class="alt-modal" id="alt-modal" role="dialog" aria-modal="true" aria-label="Gọi điện người thân" hidden>
+      <div class="alt-modal-card panel gilded">
+        <button type="button" class="alt-modal-close" aria-label="Đóng cửa sổ">×</button>
+        <div id="alt-modal-body"></div>
+      </div>
+    </div>
 
     <nav class="pager" aria-label="Điều hướng bài học">
       <a href="tong-hop.html"><span class="dir">← Ôn lại</span><span class="name">Tổng hợp kiến thức</span></a>
@@ -115,6 +152,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
 <script src="assets/js/main.js" defer></script>
-<script src="assets/js/quiz.js" defer></script>
+<script src="assets/js/trieu-phu.js" defer></script>
 </body>
 </html>

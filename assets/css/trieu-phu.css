@@ -1,0 +1,208 @@
+/* ═══════════════════════════════════════════════════════
+   trieu-phu.css — Game «Ai là triệu phú»
+   Dùng lại tokens của style.css (--gold, --red, --good, --bad…)
+   ═══════════════════════════════════════════════════════ */
+
+/* ---------- Màn mở đầu ---------- */
+.alt-start{
+  text-align:center;max-width:44rem;margin-inline:auto;
+  background:linear-gradient(180deg,var(--bg2),var(--bg1));
+  border:1px solid var(--line);border-radius:var(--r-panel);
+  box-shadow:var(--shadow-panel);padding:clamp(1.6rem,4vw,2.6rem);
+}
+.alt-start .start-seal{
+  display:inline-grid;place-items:center;width:3.4rem;height:3.4rem;margin-bottom:.5rem;
+  border-radius:50%;font-size:1.5rem;color:#241703;
+  background:radial-gradient(circle at 35% 30%,var(--gold-soft),var(--gold-deep));
+  box-shadow:0 0 0 6px rgba(227,184,76,.14);
+}
+.alt-rules{
+  list-style:none;padding:0;margin:1.2rem auto 1.6rem;max-width:32rem;
+  display:grid;gap:.55rem;text-align:left;
+}
+.alt-rules li{
+  position:relative;padding-left:1.7rem;color:var(--muted);font-size:.95rem;line-height:1.5;
+}
+.alt-rules li::before{content:"◆";position:absolute;left:0;top:.05em;color:var(--gold);font-size:.8rem}
+.alt-rules b{color:var(--gold-soft);font-weight:600}
+
+/* ---------- Bố cục sân chơi ---------- */
+.alt-arena{
+  display:grid;grid-template-columns:1fr 17rem;gap:1.4rem;align-items:start;
+}
+.alt-arena[hidden]{display:none}
+@media (max-width:820px){
+  .alt-arena{grid-template-columns:1fr;gap:1rem}
+}
+
+/* ---------- Thang tiền ---------- */
+.alt-ladder-wrap{
+  background:linear-gradient(180deg,var(--bg2),var(--bg1));
+  border:1px solid var(--line);border-radius:var(--r-panel);padding:.7rem;
+  position:sticky;top:5.5rem;
+}
+.alt-ladder{display:flex;flex-direction:column;gap:.18rem}
+.ladder-rung{
+  display:flex;align-items:center;gap:.6rem;padding:.4rem .7rem;border-radius:.5rem;
+  font-family:var(--f-body);font-size:.88rem;color:var(--muted);
+  transition:background .2s,color .2s,transform .2s var(--ease);
+}
+.ladder-rung .rn{
+  min-width:1.5rem;text-align:center;font-weight:700;color:var(--gold-deep);
+  font-size:.78rem;opacity:.85;
+}
+.ladder-rung .rm{font-variant-numeric:tabular-nums;font-weight:600}
+.ladder-rung.milestone .rm{color:var(--gold-soft);text-decoration:underline;text-underline-offset:.2em}
+.ladder-rung.passed{color:var(--good);opacity:.55}
+.ladder-rung.current{
+  background:linear-gradient(90deg,rgba(227,184,76,.22),rgba(214,69,46,.12));
+  color:#241703;transform:translateX(2px);
+}
+.ladder-rung.current .rm,.ladder-rung.current .rn{color:#241703}
+.ladder-rung.current{
+  background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+  box-shadow:0 0 18px rgba(227,184,76,.35);
+}
+
+/* Trên mobile: thang tiền thành thanh ngang cuộn */
+@media (max-width:820px){
+  .alt-ladder-wrap{position:static;order:-1;overflow-x:auto}
+  .alt-ladder{flex-direction:row-reverse;justify-content:flex-end;gap:.3rem;min-width:max-content}
+  .ladder-rung{flex-direction:column;gap:.1rem;padding:.35rem .5rem;font-size:.72rem;white-space:nowrap}
+  .ladder-rung .rm{font-size:.72rem}
+}
+
+/* ---------- Bảng câu hỏi ---------- */
+.alt-qbox{
+  background:radial-gradient(120% 140% at 50% 0%,var(--bg2),var(--bg1));
+  border:1px solid var(--line-strong);border-radius:var(--r-panel);
+  padding:clamp(1.1rem,3vw,1.8rem);box-shadow:var(--shadow-panel);
+}
+.alt-qnum{
+  display:inline-block;font-family:var(--f-body);font-weight:700;
+  font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);background:rgba(227,184,76,.1);
+  border:1px solid var(--line-strong);border-radius:var(--r-chip);
+  padding:.28rem .8rem;margin-bottom:.9rem;
+}
+.alt-qtext{
+  font-family:var(--f-display);font-weight:700;color:var(--ink);
+  font-size:clamp(1.1rem,2.6vw,1.5rem);line-height:1.32;margin:0 0 1.2rem;
+}
+
+/* ---------- Đáp án (ô vát chéo) ---------- */
+.alt-options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media (max-width:560px){.alt-options{grid-template-columns:1fr}}
+.alt-opt{
+  --clip:16px;
+  display:flex;align-items:center;gap:.75rem;width:100%;text-align:left;
+  padding:.85rem 1rem;border:1.5px solid var(--line-strong);
+  background:linear-gradient(180deg,rgba(39,26,15,.9),rgba(29,20,12,.9));
+  color:var(--ink);font-size:.98rem;line-height:1.35;
+  clip-path:polygon(var(--clip) 0,100% 0,100% calc(100% - var(--clip)),calc(100% - var(--clip)) 100%,0 100%,0 var(--clip));
+  transition:border-color .18s,background .18s,transform .18s var(--ease),color .18s;
+}
+.alt-opt:hover:not(:disabled){border-color:var(--gold);transform:translateY(-2px)}
+.alt-opt .lt{
+  flex:none;display:grid;place-items:center;width:1.9rem;height:1.9rem;border-radius:50%;
+  font-family:var(--f-display);font-weight:700;color:var(--gold);
+  border:1.5px solid var(--line-strong);background:rgba(227,184,76,.06);
+}
+.alt-opt .tx{flex:1}
+.alt-opt:disabled{cursor:default}
+.alt-opt.selected{
+  border-color:var(--gold);background:linear-gradient(180deg,rgba(227,184,76,.18),rgba(214,69,46,.08));
+}
+.alt-opt.selected .lt{background:var(--gold);color:#241703;border-color:var(--gold)}
+.alt-opt.locked{
+  border-color:var(--gold-soft);
+  background:linear-gradient(180deg,rgba(227,184,76,.3),rgba(227,184,76,.12));
+  animation:altPulse 1s ease-in-out infinite;
+}
+@keyframes altPulse{50%{box-shadow:0 0 22px rgba(227,184,76,.5)}}
+.alt-opt.correct{
+  border-color:var(--good);color:#eafaee;
+  background:linear-gradient(180deg,var(--good-bg),rgba(63,142,88,.28));animation:none;
+}
+.alt-opt.correct .lt{background:var(--good);color:#0e2415;border-color:var(--good)}
+.alt-opt.wrong{
+  border-color:var(--bad);
+  background:linear-gradient(180deg,var(--bad-bg),rgba(214,69,46,.28));animation:none;
+}
+.alt-opt.wrong .lt{background:var(--bad);color:#2a0d07;border-color:var(--bad)}
+.alt-opt.dimmed{opacity:.22;pointer-events:none}
+.alt-opt.dimmed .tx{visibility:hidden}
+
+/* ---------- Điều khiển + trợ giúp ---------- */
+.alt-bar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;
+  margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid var(--line);
+}
+.alt-lifelines{display:flex;gap:.6rem;margin-right:auto}
+.lifeline{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.5rem .85rem;border-radius:var(--r-chip);
+  border:1.5px solid var(--line-strong);background:rgba(227,184,76,.07);
+  color:var(--gold);font-weight:600;font-size:.86rem;
+  transition:background .2s,border-color .2s,transform .2s var(--ease),color .2s;
+}
+.lifeline:hover:not(:disabled){background:rgba(227,184,76,.16);border-color:var(--gold);transform:translateY(-1px)}
+.lifeline .li-ic{font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.lifeline.used,.lifeline:disabled{
+  position:relative;opacity:.42;color:var(--muted);border-color:var(--line);
+  background:rgba(255,255,255,.02);cursor:default;transform:none;
+}
+.lifeline.used::after{
+  content:"";position:absolute;left:12%;right:12%;top:50%;height:2px;
+  background:var(--bad);transform:rotate(-8deg);border-radius:2px;
+}
+
+/* ---------- Modal gọi điện ---------- */
+.alt-modal{
+  position:fixed;inset:0;z-index:200;display:grid;place-items:center;
+  background:rgba(10,6,3,.72);padding:1.2rem;
+}
+.alt-modal[hidden]{display:none}
+.alt-modal-card{
+  position:relative;max-width:26rem;width:100%;text-align:center;
+  padding:1.6rem 1.4rem 1.4rem;
+}
+.alt-modal-close{
+  position:absolute;top:.6rem;right:.6rem;width:2rem;height:2rem;border-radius:50%;
+  display:grid;place-items:center;border:1.5px solid var(--line-strong);
+  background:rgba(227,184,76,.08);color:var(--gold);font-size:1.1rem;line-height:1;
+  transition:background .2s,transform .25s var(--ease);
+}
+.alt-modal-close:hover{background:rgba(214,69,46,.2);transform:rotate(90deg)}
+.phone-head{display:flex;align-items:center;justify-content:center;gap:.5rem;color:var(--gold-soft);margin-bottom:.7rem;font-family:var(--f-display);font-size:1.05rem}
+.phone-ic{font-size:1.3rem}
+.phone-line{color:var(--ink);font-size:1.02rem;line-height:1.5;margin:.2rem 0 .6rem}
+.phone-line b{color:var(--gold-soft);font-size:1.15em}
+.phone-sub{color:var(--muted);font-style:italic;font-family:var(--f-quote);font-size:1rem;margin:0}
+
+/* ---------- Màn kết thúc ---------- */
+.alt-endcard{
+  text-align:center;max-width:36rem;margin-inline:auto;
+  background:linear-gradient(180deg,var(--bg2),var(--bg1));
+  border:1px solid var(--line-strong);border-radius:var(--r-panel);
+  box-shadow:var(--shadow-panel);padding:clamp(1.6rem,4vw,2.6rem);
+}
+.alt-endcard .end-seal{
+  display:inline-grid;place-items:center;width:3.4rem;height:3.4rem;margin-bottom:.4rem;
+  border-radius:50%;font-size:1.6rem;font-weight:700;
+}
+.alt-endcard.win .end-seal{color:#241703;background:radial-gradient(circle at 35% 30%,var(--gold-soft),var(--gold-deep));box-shadow:0 0 0 6px rgba(227,184,76,.16)}
+.alt-endcard.walk .end-seal{color:#0e2415;background:radial-gradient(circle at 35% 30%,#b6e3c1,var(--good));}
+.alt-endcard.lose .end-seal{color:#2a0d07;background:radial-gradient(circle at 35% 30%,#f6b3a4,var(--bad));}
+.end-money{
+  font-family:var(--f-display);font-weight:900;
+  font-size:clamp(1.8rem,6vw,2.8rem);margin:.3rem 0 .2rem;
+  background:linear-gradient(90deg,var(--red),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.end-sub{color:var(--muted);line-height:1.55;max-width:28rem;margin:.4rem auto 0}
+.end-cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:1.4rem}
+
+@media (prefers-reduced-motion:reduce){
+  .alt-opt.locked{animation:none}
+}
