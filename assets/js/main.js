@@ -34,6 +34,7 @@
     { href: 'vi-du.html',     num: '6', pos: 'Bài 6/8', label: 'Ví dụ thực tế',        desc: 'WTO 2007, kinh tế tư nhân, quỹ bình ổn xăng dầu…',        group: 'bai' },
     { href: 'tong-hop.html',  pos: 'Bài 7/8', label: 'Tổng hợp kiến thức',   desc: 'Một câu nhớ nhanh + bộ số vàng 3·5·3·4.',                  group: 'on' },
     { href: 'quiz.html',      pos: 'Bài 8/8', label: 'Quiz 10 câu',          desc: 'Chấm ngay, giải thích từng đáp án, có bảng điểm.',        group: 'on' },
+    { href: 'dinh-nam-cot.html', label: 'Dựng đình 5 đặc trưng', desc: 'Trò tương tác: kéo 5 cột dựng đình — ôn nhanh 5 đặc trưng.', group: 'on' },
     { href: 'chatbot.html',   label: 'Trợ giảng hỏi đáp',    desc: 'Hỏi trong phạm vi bài học — chạy ngay trên trình duyệt.',  group: 'on' }
   ];
   var pathName = (location.pathname.split('/').pop() || 'index.html');
